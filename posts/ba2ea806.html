@@ -20,25 +20,33 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"chiujun.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Personal Blog">
+    <meta name="description" content="转载信息：面试官：说一下你常用的加密算法（https:&#x2F;&#x2F;developer.aliyun.com&#x2F;article&#x2F;769289） 原文作者：Java旅途（https:&#x2F;&#x2F;developer.aliyun.com&#x2F;profile&#x2F;expert&#x2F;bqscd3m22yfak） 版权声明：本文内容由阿里云实名注册用户自发贡献，版权归原作者所有，阿里云开发者社区不拥有其著作权，亦不承担相应法律责任。具体">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="ChiuJun&#39;s Blog">
-<meta property="og:url" content="https://chiujun.github.io/index.html">
+<meta property="og:title" content="常见加密算法在Java中的使用">
+<meta property="og:url" content="https://chiujun.github.io/posts/ba2ea806.html">
 <meta property="og:site_name" content="ChiuJun&#39;s Blog">
-<meta property="og:description" content="Personal Blog">
+<meta property="og:description" content="转载信息：面试官：说一下你常用的加密算法（https:&#x2F;&#x2F;developer.aliyun.com&#x2F;article&#x2F;769289） 原文作者：Java旅途（https:&#x2F;&#x2F;developer.aliyun.com&#x2F;profile&#x2F;expert&#x2F;bqscd3m22yfak） 版权声明：本文内容由阿里云实名注册用户自发贡献，版权归原作者所有，阿里云开发者社区不拥有其著作权，亦不承担相应法律责任。具体">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1719198/202007/1719198-20200731091157790-1639133777.jpg">
+<meta property="article:published_time" content="2023-07-10T12:46:59.000Z">
+<meta property="article:modified_time" content="2023-07-10T12:46:59.000Z">
 <meta property="article:author" content="ChiuJun">
+<meta property="article:tag" content="转载">
+<meta property="article:tag" content="加密算法">
+<meta property="article:tag" content="消息摘要算法">
+<meta property="article:tag" content="密码学">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/1719198/202007/1719198-20200731091157790-1639133777.jpg">
 
 
-<link rel="canonical" href="https://chiujun.github.io/">
+<link rel="canonical" href="https://chiujun.github.io/posts/ba2ea806.html">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://chiujun.github.io/posts/ba2ea806.html","path":"posts/ba2ea806.html","title":"常见加密算法在Java中的使用"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>ChiuJun's Blog</title>
+<title>常见加密算法在Java中的使用 | ChiuJun's Blog</title>
   
 
 
@@ -71,7 +79,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">ChiuJun's Blog</h1>
+      <p class="site-title">ChiuJun's Blog</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -124,7 +132,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -137,6 +145,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E8%BD%BD%E6%B3%A8"><span class="nav-number">1.</span> <span class="nav-text">转载注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E9%80%86%E5%8A%A0%E5%AF%86"><span class="nav-number">2.</span> <span class="nav-text">不可逆加密</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#md5"><span class="nav-number">2.1.</span> <span class="nav-text">MD5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sha%E7%B3%BB%E5%88%97"><span class="nav-number">2.2.</span> <span class="nav-text">SHA系列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hmac%E7%B3%BB%E5%88%97"><span class="nav-number">2.3.</span> <span class="nav-text">HMAC系列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">对称加密算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#des"><span class="nav-number">3.1.</span> <span class="nav-text">DES</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#des-1"><span class="nav-number">3.2.</span> <span class="nav-text">3DES</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aes"><span class="nav-number">3.3.</span> <span class="nav-text">AES</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">非对称加密算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rsa"><span class="nav-number">4.1.</span> <span class="nav-text">RSA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E7%9B%90"><span class="nav-number">5.</span> <span class="nav-text">加密盐</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -189,16 +198,17 @@
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://chiujun.github.io/posts/ba2ea806.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -212,13 +222,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ChiuJun's Blog">
+      <meta itemprop="name" content="常见加密算法在Java中的使用 | ChiuJun's Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/ba2ea806.html" class="post-title-link" itemprop="url">常见加密算法在Java中的使用</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          常见加密算法在Java中的使用
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -241,6 +251,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
   
   <span class="post-meta-item">
     
@@ -278,8 +295,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
+    <div class="post-body" itemprop="articleBody"><blockquote>
 <p>转载信息：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.aliyun.com/article/769289">面试官：说一下你常用的加密算法</a>（https://developer.aliyun.com/article/769289）<br />
 原文作者：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.aliyun.com/profile/expert/bqscd3m22yfak">Java旅途</a>（https://developer.aliyun.com/profile/expert/bqscd3m22yfak）<br />
 版权声明：本文内容由阿里云实名注册用户自发贡献，版权归原作者所有，阿里云开发者社区不拥有其著作权，亦不承担相应法律责任。具体规则请查看《<a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.aliyun.com/article/768092">阿里云开发者社区用户服务协议</a>》和《<a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.aliyun.com/article/768093">阿里云开发者社区知识产权保护指引</a>》。如果您发现本社区中有涉嫌抄袭的内容，填写<a target="_blank" rel="noopener external nofollow noreferrer" href="https://yida.alibaba-inc.com/o/right">侵权投诉表单</a>进行举报，一经查实，本社区将立刻删除涉嫌侵权内容。<br />
@@ -347,7 +363,6 @@
 <img data-src="https://img2020.cnblogs.com/blog/1719198/202007/1719198-20200731091157790-1639133777.jpg" alt="" /><figcaption>img</figcaption>
 </figure>
 
-      
     </div>
 
     
@@ -355,470 +370,41 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>ChiuJun
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://chiujun.github.io/posts/ba2ea806.html" title="常见加密算法在Java中的使用">https://chiujun.github.io/posts/ba2ea806.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
 </div>
 
+          <div class="post-tags">
+              <a href="/tags/%E8%BD%AC%E8%BD%BD/" rel="tag"># 转载</a>
+              <a href="/tags/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag"># 加密算法</a>
+              <a href="/tags/%E6%B6%88%E6%81%AF%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95/" rel="tag"># 消息摘要算法</a>
+              <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" rel="tag"># 密码学</a>
+          </div>
 
+        
 
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://chiujun.github.io/posts/6f0712da.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="ChiuJun">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ChiuJun's Blog">
-      <meta itemprop="description" content="Personal Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ChiuJun's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/6f0712da.html" class="post-title-link" itemprop="url">一键部署 Hexo 博客到 GitHub Pages</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-07-07 22:08:13" itemprop="dateCreated datePublished" datetime="2023-07-07T22:08:13+00:00">2023-07-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-09 17:34:44" itemprop="dateModified" datetime="2023-07-09T17:34:44+00:00">2023-07-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%8F%82%E8%80%83%E4%B8%8E%E6%8C%87%E5%8D%97/" itemprop="url" rel="index"><span itemprop="name">参考与指南</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/posts/6f0712da.html#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/6f0712da.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>7 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io/">Hexo</a> 是一个快速、简洁且高效的博客框架，只需一条指令即可部署到 GitHub Pages, Heroku 或其他平台<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。</p>
-<p>如果没有什么特殊的需求，将生成的静态网页托管到 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://pages.github.com/">GitHub Pages</a> 是一个不错的选择。目前 Hexo 官方提供了2种方式一键部署到 GitHub Pages：</p>
-<ul>
-<li>本地一键部署：使用 Hexo 官方的部署插件 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/hexojs/hexo-deployer-git">hexo-deployer-git</a></li>
-<li>远程一键部署：使用 GitHub 自家的 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/CI/CD">CI/CD</a> 工具 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.github.com/zh/actions">GitHub Actions</a></li>
-</ul>
-<p>这两种方式对应了不同的使用场景，第一种方式适合博客源代码没有托管在 GitHub 的场景，第二种相反。博主选择了将博客源代码托管到了 GitHub，所以很自然的选择了第二种方式实现一键部署的需求，接下来具体看看如何利用 CI/CD 工具实现远程一键部署 Hexo 博客到 GitHub Pages。</p>
-<h2 id="一键部署博客">一键部署博客</h2>
-<p>博主在几年前就接触了 Hexo 博客，当时 GitHub Actions 的正式版才推出不久(2019/11/13)<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>，参考了<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/formulahendry">韩骏</a>大佬的博客<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>使用了 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.appveyor.com/">AppVeyor</a> 作为 CI/CD 工具，只可惜其免费版本不支持私有仓库。博客源代码仓库包含了非公开的配置信息(服务的<code>token</code>、<code>secret</code>)以及加密文章的原文、草稿箱的草稿，因此源代码仓库设置为私有是必要的。而 GitHub Actions 作为 GitHub 自家的产品，对于当前的使用场景即使是私有仓库也完美支持。有一点需要注意的是对于私有仓库 GitHub Actions 有额度限制，不过即使是最低级别的 GitHub Free 也有相当可观的额度，具体可以查阅<a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions">官方文档</a>。</p>
-<p>选定 GitHub Actions 作为 CI/CD 工具后查阅 Hexo 官方给定的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io/docs/github-pages">文档</a>发现其设定是博客源代码与 GitHub Pages 储存在同一个仓库通过分支进行区分，但将 GitHub Pages 所在的仓库设置为私有需要订阅更高级别的产品<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>，这显然与我们的需求不符。</p>
-<blockquote>
-<p>GitHub Pages is available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see "<a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.github.com/en/get-started/learning-about-github/githubs-products">GitHub’s products</a>."</p>
-</blockquote>
-<p>通过查阅 Hexo 官方配置文件中复用的 Action <code>peaceiris/actions-gh-pages@v3</code>的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/marketplace/actions/github-pages-action">文档</a>发现，经过简单配置和修改就可以实现我们的需求。</p>
-<blockquote>
-<p>By default, your files are published to the repository which is running this action. If you want to publish to another repository on GitHub, set the environment variable <code>external_repository</code> to <code>&lt;username&gt;/&lt;external-repository&gt;</code>.</p>
-</blockquote>
-<p>先分别贴上原版的配置文件和修改后的配置文件：</p>
-<ul>
-<li><p>原版配置文件</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span>  <span class="comment"># default branch</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">pages:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">permissions:</span></span><br><span class="line">      <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># If your repository depends on submodule, please see: https://github.com/actions/checkout</span></span><br><span class="line">          <span class="attr">submodules:</span> <span class="string">recursive</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Use</span> <span class="string">Node.js</span> <span class="number">16.</span><span class="string">x</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&#x27;16&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">NPM</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/cache@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">$&#123;&#123;</span> <span class="string">runner.OS</span> <span class="string">&#125;&#125;-npm-cache</span></span><br><span class="line">          <span class="attr">restore-keys:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            $&#123;&#123; runner.OS &#125;&#125;-npm-cache</span></span><br><span class="line"><span class="string"></span>      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br></pre></td></tr></table></figure></li>
-<li><p>修改后的配置文件</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line"> </span><br><span class="line"> <span class="attr">on:</span></span><br><span class="line">   <span class="attr">push:</span></span><br><span class="line">     <span class="attr">branches:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">main</span>  <span class="comment"># default branch</span></span><br><span class="line"> </span><br><span class="line"> <span class="attr">jobs:</span></span><br><span class="line">   <span class="attr">deploy-gh-pages:</span></span><br><span class="line">     <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">     <span class="attr">permissions:</span></span><br><span class="line">       <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line">     <span class="attr">steps:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line">         <span class="attr">with:</span></span><br><span class="line">           <span class="attr">token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">           <span class="comment"># If your repository depends on submodule, please see: https://github.com/actions/checkout</span></span><br><span class="line">           <span class="attr">submodules:</span> <span class="string">recursive</span></span><br><span class="line">       <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">pandoc</span></span><br><span class="line">         <span class="attr">run:</span> <span class="string">sudo</span> <span class="string">apt-get</span> <span class="string">install</span> <span class="string">pandoc</span></span><br><span class="line">       <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Use</span> <span class="string">Node.js</span> <span class="number">19.</span><span class="string">x</span></span><br><span class="line">         <span class="attr">uses:</span> <span class="string">actions/setup-node@v2</span></span><br><span class="line">         <span class="attr">with:</span></span><br><span class="line">           <span class="attr">node-version:</span> <span class="string">&#x27;19&#x27;</span></span><br><span class="line">       <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">NPM</span> <span class="string">dependencies</span></span><br><span class="line">         <span class="attr">uses:</span> <span class="string">actions/cache@v2</span></span><br><span class="line">         <span class="attr">with:</span></span><br><span class="line">           <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">           <span class="attr">key:</span> <span class="string">$&#123;&#123;</span> <span class="string">runner.OS</span> <span class="string">&#125;&#125;-npm-cache</span></span><br><span class="line">           <span class="attr">restore-keys:</span> <span class="string">|</span></span><br><span class="line"><span class="string">             $&#123;&#123; runner.OS &#125;&#125;-npm-cache</span></span><br><span class="line"><span class="string"></span>       <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Dependencies</span></span><br><span class="line">         <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">       <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span></span><br><span class="line">         <span class="attr">run:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line">       <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">         <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">         <span class="attr">with:</span></span><br><span class="line">           <span class="attr">deploy_key:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.ACTIONS_DEPLOY_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">           <span class="attr">external_repository:</span> <span class="string">username/external-repository</span></span><br><span class="line">           <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br><span class="line">           <span class="attr">user_name:</span> <span class="string">&#x27;github-actions[bot]&#x27;</span></span><br><span class="line">           <span class="attr">user_email:</span> <span class="string">&#x27;github-actions[bot]@users.noreply.github.com&#x27;</span></span><br><span class="line">           <span class="attr">commit_message:</span> <span class="string">$&#123;&#123;</span> <span class="string">github.event.head_commit.message</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>与原版的配置文件对比只修改了以下3个方面：</p>
-<ol type="1">
-<li>安装 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://pandoc.org/">pandoc</a> ： <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># line 19</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">pandoc</span></span><br><span class="line">  <span class="attr">run:</span> <span class="string">sudo</span> <span class="string">apt-get</span> <span class="string">install</span> <span class="string">pandoc</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>与此文无关，因渲染器改为了<code>hexo-renderer-pandoc</code></li>
-</ul></li>
-<li>修改 Node.js 主版本： <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># line 21</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Use</span> <span class="string">Node.js</span> <span class="number">19.</span><span class="string">x</span></span><br><span class="line">  <span class="attr">uses:</span> <span class="string">actions/setup-node@v2</span></span><br><span class="line">  <span class="attr">with:</span></span><br><span class="line">    <span class="attr">node-version:</span> <span class="string">&#x27;19&#x27;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>在本地使用<code>node --version</code>查看即可</li>
-</ul></li>
-<li>配置<code>peaceiris/actions-gh-pages@v3</code>的传入参数： <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># line 36</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">  <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">  <span class="attr">with:</span></span><br><span class="line">    <span class="attr">deploy_key:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.ACTIONS_DEPLOY_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="attr">external_repository:</span> <span class="string">username/external-repository</span></span><br><span class="line">    <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br><span class="line">    <span class="attr">user_name:</span> <span class="string">&#x27;github-actions[bot]&#x27;</span></span><br><span class="line">    <span class="attr">user_email:</span> <span class="string">&#x27;github-actions[bot]@users.noreply.github.com&#x27;</span></span><br><span class="line">    <span class="attr">commit_message:</span> <span class="string">$&#123;&#123;</span> <span class="string">github.event.head_commit.message</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>删除<code>github_token</code>：对于<code>external_repository</code>使用<code>external_repository</code>或<code>personal_token</code>代替</li>
-<li>增加<code>deploy_key</code>：生成<code>SSH Key Pair</code>，在 GitHub Pages 仓库使用公钥设置<code>Deploy keys</code>并确保勾选<code>Allow write access</code>，在博客源代码仓库的<code>Actions secrets and variables</code>设置项使用私钥设置<code>Secrets</code>。配置文件里的<code>ACTIONS_DEPLOY_KEY</code>就是之前设置<code>Secrets</code>填的名字</li>
-<li>增加<code>external_repository</code>：GitHub Pages 仓库<code>username/external-repository</code></li>
-<li>增加<code>user_name</code>：配置 GitHub Pages 仓库的 commit 用户为<code>github-actions[bot]</code></li>
-<li>增加<code>user_email</code>：配置 GitHub Pages 仓库的 commit 用户邮箱为<code>github-actions[bot]</code>邮箱</li>
-<li>增加<code>commit_message</code>：配置 GitHub Pages 仓库的 commit message 为触发该 GitHub Actions 事件源的头部 commit message</li>
-</ul></li>
-</ol>
-<p>修改完配置文件后将配置文件存放到博客源代码仓库的<code>.github/workflows/filename.yml</code>，以后有提交 push 到该仓库的<code>main</code>分支便可触发该配置文件对应的工作流完成 GitHub Pages 的自动部署。</p>
-<h2 id="一键推送源码">一键推送源码</h2>
-<p>至此似乎已经大功告成，但博主觉得已经完成建站进入正常更新状态的博客，每次更新还需要<code>git add</code>、<code>git commit</code>、<code>git push</code>三个步骤才能完成博客更新还是略微麻烦，有没有办法能实现一键推送博客源代码？</p>
-<h3 id="使用-hexo-deployer">使用 Hexo Deployer</h3>
-<p><code>Hexo Deployer</code>是 Hexo 自带的部署工具，通过编写安装各种各样的 Hexo 插件，可以通过<code>hexo deploy</code>命令将 Hexo 博客一键部署到各种类型的托管服务，<code>Hexo Deployer</code>提供了 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io/zh-cn/api/deployer">API</a> 供开发者开发第三方插件实现该功能。</p>
-<p>虽然 Hexo 官方的本意是部署博客，但似乎可以借助这个功能实现我们一键推送源码的需求，于是博主根据 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/hexojs/hexo-deployer-git">hexo-deployer-git</a> 编写了一个 Hexo 插件 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ChiuJun/hexo-auto-push-git">hexo-auto-push-git</a> ：</p>
-<ol type="1">
-<li><p>安装</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install https://github.com/ChiuJun/hexo-auto-push-git.git --save-dev</span><br></pre></td></tr></table></figure></p></li>
-<li><p>配置</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># You can use this:</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">branch:</span> [<span class="string">branch</span>]</span><br><span class="line">  <span class="attr">message:</span> [<span class="string">message</span>]</span><br></pre></td></tr></table></figure></li>
-<li><p>使用</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure></p></li>
-</ol>
-<h3 id="使用-alias-shell">使用 alias shell</h3>
-<p>修改完博客配置希望看看效果，每次都要输入一串命令</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure></p>
-<p>想到可以用<code>alias</code>简化操作，突然想到<code>alias</code>也可以完成我们一键推送源码的需求</p>
-<p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alias hexo_test=&quot;hexo clean &amp;&amp; hexo generate &amp;&amp; hexo server&quot;</span><br><span class="line">alias hexot=hexo_test</span><br><span class="line">alias hexo_post_article_to_source_repo=&quot;git add -A &amp;&amp; git commit -m \&quot;docs: site updated `date \&quot;+%Y-%m-%d %H:%M:%S\&quot;`\&quot; &amp;&amp; git push -u origin HEAD:main&quot;</span><br><span class="line">alias hexop=hexo_post_article_to_source_repo</span><br></pre></td></tr></table></figure></p>
-<p>将后面两行<code>alias</code>命令添加到所使用 shell 的配置文件中，使用<code>source</code>命令更新下配置文件便可以使用别名<code>hexop</code>一键推送源码 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexop</span><br></pre></td></tr></table></figure> 至此，我们已经完成了一键推送源码以及一键部署博客，以后便可以愉快的写博客了！</p>
-<section class="footnotes" role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1" role="doc-endnote"><p>Hexo (2023a) <em>Home page</em> , <em>Hexo</em>. Available at: https://hexo.io/zh-cn/ (Accessed: 08 July 2023).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Niyogi, S. (2019) <em>New from universe 2019: Github for mobile, GitHub Archive Program, and more</em>, <em>The GitHub Blog</em>. Available at: https://github.blog/2019-11-13-universe-day-one/#github-actions (Accessed: 08 July 2023).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>Han, J. (2017) <em>Hexo的版本控制与持续集成</em>, <em>formulahendry</em>. Available at: https://formulahendry.github.io/2016/12/04/hexo-ci/ (Accessed: 08 July 2023).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>GitHub, Inc. (no date) <em>About GitHub Pages</em>, <em>GitHub Docs</em>. Available at: https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages (Accessed: 09 July 2023).<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://chiujun.github.io/posts/ad81da89.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="ChiuJun">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ChiuJun's Blog">
-      <meta itemprop="description" content="Personal Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ChiuJun's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/ad81da89.html" class="post-title-link" itemprop="url">Commit message 和 Change log 编写指南</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-07-05 21:57:20" itemprop="dateCreated datePublished" datetime="2023-07-05T21:57:20+00:00">2023-07-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-06 23:33:53" itemprop="dateModified" datetime="2023-07-06T23:33:53+00:00">2023-07-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%8F%82%E8%80%83%E4%B8%8E%E6%8C%87%E5%8D%97/" itemprop="url" rel="index"><span itemprop="name">参考与指南</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/posts/ad81da89.html#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/ad81da89.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>转载信息：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html">Commit message 和 Change log 编写指南</a>（https://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html）<br />
-原文作者：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.ruanyifeng.com/">阮一峰</a>（https://www.ruanyifeng.com/）<br />
-版权声明：自由转载-非商用-非衍生-保持署名（<a target="_blank" rel="noopener external nofollow noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）<br />
-发表日期：2016年 1月 6日</p>
-</blockquote>
-<p>Git 每次提交代码，都要写 Commit message（提交说明），否则就不允许提交。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m <span class="string">&quot;hello world&quot;</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>上面代码的<code>-m</code>参数，就是用来指定 commit mesage 的。</p>
-<p>如果一行不够，可以只执行<code>git commit</code>，就会跳出文本编辑器，让你写多行。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>基本上，你写什么都行（<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.commitlogsfromlastnight.com/">这里</a>，<a target="_blank" rel="noopener external nofollow noreferrer" href="http://blog.no-panic.at/2014/10/20/funny-initial-git-commit-messages/">这里</a>和<a target="_blank" rel="noopener external nofollow noreferrer" href="http://whatthecommit.com/">这里</a>）。</p>
-<figure>
-<img data-src="https://www.ruanyifeng.com/blogimg/asset/2016/bg2016010601.png" alt="" /><figcaption>img</figcaption>
-</figure>
-<p>但是，一般来说，commit message 应该清晰明了，说明本次提交的目的。</p>
-<figure>
-<img data-src="https://www.ruanyifeng.com/blogimg/asset/2016/bg2016010602.png" alt="" /><figcaption>img</figcaption>
-</figure>
-<p>目前，社区有多种 Commit message 的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ajoslin/conventional-changelog/blob/master/conventions">写法规范</a>。本文介绍<a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#heading=h.greljkmo14y0">Angular 规范</a>（见上图），这是目前使用最广的写法，比较合理和系统化，并且有配套的工具。</p>
-<h2 id="commit-message-的作用">Commit message 的作用</h2>
-<p>格式化的Commit message，有几个好处。</p>
-<p><strong>（1）提供更多的历史信息，方便快速浏览。</strong></p>
-<p>比如，下面的命令显示上次发布后的变动，每个commit占据一行。你只看行首，就知道某次 commit 的目的。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> &lt;last tag&gt; HEAD --pretty=format:%s</span><br></pre></td></tr></table></figure>
-</blockquote>
-<figure>
-<img data-src="https://www.ruanyifeng.com/blogimg/asset/2016/bg2016010604.png" alt="" /><figcaption>img</figcaption>
-</figure>
-<p><strong>（2）可以过滤某些commit（比如文档改动），便于快速查找信息。</strong></p>
-<p>比如，下面的命令仅仅显示本次发布新增加的功能。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> &lt;last release&gt; HEAD --grep feature</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p><strong>（3）可以直接从commit生成Change log。</strong></p>
-<p>Change Log 是发布新版本时，用来说明与上一个版本差异的文档，详见后文。</p>
-<figure>
-<img data-src="https://www.ruanyifeng.com/blogimg/asset/2016/bg2016010603.png" alt="" /><figcaption>img</figcaption>
-</figure>
-<h2 id="commit-message-的格式">Commit message 的格式</h2>
-<p>每次提交，Commit message 都包括三个部分：Header，Body 和 Footer。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="built_in">type</span>&gt;(&lt;scope&gt;): &lt;subject&gt;</span><br><span class="line">// 空一行</span><br><span class="line">&lt;body&gt;</span><br><span class="line">// 空一行</span><br><span class="line">&lt;footer&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>其中，Header 是必需的，Body 和 Footer 可以省略。</p>
-<p>不管是哪一个部分，任何一行都不得超过72个字符（或100个字符）。这是为了避免自动换行影响美观。</p>
-<h3 id="header">Header</h3>
-<p>Header部分只有一行，包括三个字段：<code>type</code>（必需）、<code>scope</code>（可选）和<code>subject</code>（必需）。</p>
-<p><strong>（1）type</strong></p>
-<p><code>type</code>用于说明 commit 的类别，只允许使用下面7个标识。</p>
-<blockquote>
-<ul>
-<li>feat：新功能（feature）</li>
-<li>fix：修补bug</li>
-<li>docs：文档（documentation）</li>
-<li>style： 格式（不影响代码运行的变动）</li>
-<li>refactor：重构（即不是新增功能，也不是修改bug的代码变动）</li>
-<li>test：增加测试</li>
-<li>chore：构建过程或辅助工具的变动</li>
-</ul>
-</blockquote>
-<p>如果<code>type</code>为<code>feat</code>和<code>fix</code>，则该 commit 将肯定出现在 Change log 之中。其他情况（<code>docs</code>、<code>chore</code>、<code>style</code>、<code>refactor</code>、<code>test</code>）由你决定，要不要放入 Change log，建议是不要。</p>
-<p><strong>（2）scope</strong></p>
-<p><code>scope</code>用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同。</p>
-<p><strong>（3）subject</strong></p>
-<p><code>subject</code>是 commit 目的的简短描述，不超过50个字符。</p>
-<blockquote>
-<ul>
-<li>以动词开头，使用第一人称现在时，比如<code>change</code>，而不是<code>changed</code>或<code>changes</code></li>
-<li>第一个字母小写</li>
-<li>结尾不加句号（<code>.</code>）</li>
-</ul>
-</blockquote>
-<h3 id="body">Body</h3>
-<p>Body 部分是对本次 commit 的详细描述，可以分成多行。下面是一个范例。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">More detailed explanatory text, <span class="keyword">if</span> necessary.  Wrap it to </span><br><span class="line">about 72 characters or so. </span><br><span class="line"></span><br><span class="line">Further paragraphs come after blank lines.</span><br><span class="line"></span><br><span class="line">- Bullet points are okay, too</span><br><span class="line">- Use a hanging indent</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>有两个注意点。</p>
-<p>（1）使用第一人称现在时，比如使用<code>change</code>而不是<code>changed</code>或<code>changes</code>。</p>
-<p>（2）应该说明代码变动的动机，以及与以前行为的对比。</p>
-<h3 id="footer">Footer</h3>
-<p>Footer 部分只用于两种情况。</p>
-<p><strong>（1）不兼容变动</strong></p>
-<p>如果当前代码与上一个版本不兼容，则 Footer 部分以<code>BREAKING CHANGE</code>开头，后面是对变动的描述、以及变动理由和迁移方法。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">BREAKING CHANGE: isolate scope bindings definition has changed.</span><br><span class="line"></span><br><span class="line"> To migrate the code follow the example below:</span><br><span class="line"></span><br><span class="line"> Before:</span><br><span class="line"></span><br><span class="line"> scope: &#123;</span><br><span class="line">   myAttr: <span class="string">&#x27;attribute&#x27;</span>,</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> After:</span><br><span class="line"></span><br><span class="line"> scope: &#123;</span><br><span class="line">   myAttr: <span class="string">&#x27;@&#x27;</span>,</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> The removed `inject` wasn<span class="string">&#x27;t generaly useful for directives so there should be no code using it.</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<p><strong>（2）关闭 Issue</strong></p>
-<p>如果当前 commit 针对某个issue，那么可以在 Footer 部分关闭这个 issue 。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Closes <span class="comment">#234</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>也可以一次关闭多个 issue 。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Closes <span class="comment">#123, #245, #992</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<h3 id="revert">Revert</h3>
-<p>还有一种特殊情况，如果当前 commit 用于撤销以前的 commit，则必须以<code>revert:</code>开头，后面跟着被撤销 Commit 的 Header。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">revert: feat(pencil): add <span class="string">&#x27;graphiteWidth&#x27;</span> option</span><br><span class="line"></span><br><span class="line">This reverts commit 667ecc1654a317a13331b17617d973392f415f02.</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>Body部分的格式是固定的，必须写成<code>This reverts commit &lt;hash&gt;.</code>，其中的<code>hash</code>是被撤销 commit 的 SHA 标识符。</p>
-<p>如果当前 commit 与被撤销的 commit，在同一个发布（release）里面，那么它们都不会出现在 Change log 里面。如果两者在不同的发布，那么当前 commit，会出现在 Change log 的<code>Reverts</code>小标题下面。</p>
-<h2 id="commitizen">Commitizen</h2>
-<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/commitizen/cz-cli">Commitizen</a>是一个撰写合格 Commit message 的工具。</p>
-<p>安装命令如下。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g commitizen</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>然后，在项目目录里，运行下面的命令，使其支持 Angular 的 Commit message 格式。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ commitizen init cz-conventional-changelog --save --save-exact</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>以后，凡是用到<code>git commit</code>命令，一律改为使用<code>git cz</code>。这时，就会出现选项，用来生成符合格式的 Commit message。</p>
-<figure>
-<img data-src="https://www.ruanyifeng.com/blogimg/asset/2016/bg2016010605.png" alt="" /><figcaption>img</figcaption>
-</figure>
-<h2 id="validate-commit-msg">validate-commit-msg</h2>
-<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/kentcdodds/validate-commit-msg">validate-commit-msg</a> 用于检查 Node 项目的 Commit message 是否符合格式。</p>
-<p>它的安装是手动的。首先，拷贝下面这个<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/kentcdodds/validate-commit-msg/blob/master/index.js">JS文件</a>，放入你的代码库。文件名可以取为<code>validate-commit-msg.js</code>。</p>
-<p>接着，把这个脚本加入 Git 的 hook。下面是在<code>package.json</code>里面使用 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://npm.im/ghooks">ghooks</a>，把这个脚本加为<code>commit-msg</code>时运行。</p>
-<blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;config&quot;</span>: &#123;</span><br><span class="line">  <span class="string">&quot;ghooks&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;commit-msg&quot;</span>: <span class="string">&quot;./validate-commit-msg.js&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>然后，每次<code>git commit</code>的时候，这个脚本就会自动检查 Commit message 是否合格。如果不合格，就会报错。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add -A </span><br><span class="line">$ git commit -m <span class="string">&quot;edit markdown&quot;</span> </span><br><span class="line">INVALID COMMIT MSG: does not match <span class="string">&quot;&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;&quot;</span> ! was: edit markdown</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h2 id="生成-change-log">生成 Change log</h2>
-<p>如果你的所有 Commit 都符合 Angular 格式，那么发布新版本时， Change log 就可以用脚本自动生成（<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ajoslin/conventional-changelog/blob/master/CHANGELOG.md">例1</a>，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/karma-runner/karma/blob/master/CHANGELOG.md">例2</a>，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/btford/grunt-conventional-changelog/blob/master/CHANGELOG.md">例3</a>）。</p>
-<p>生成的文档包括以下三个部分。</p>
-<blockquote>
-<ul>
-<li>New features</li>
-<li>Bug fixes</li>
-<li>Breaking changes.</li>
-</ul>
-</blockquote>
-<p>每个部分都会罗列相关的 commit ，并且有指向这些 commit 的链接。当然，生成的文档允许手动修改，所以发布前，你还可以添加其他内容。</p>
-<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ajoslin/conventional-changelog">conventional-changelog</a> 就是生成 Change log 的工具，运行下面的命令即可。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g conventional-changelog</span><br><span class="line">$ <span class="built_in">cd</span> my-project</span><br><span class="line">$ conventional-changelog -p angular -i CHANGELOG.md -w</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>上面命令不会覆盖以前的 Change log，只会在<code>CHANGELOG.md</code>的头部加上自从上次发布以来的变动。</p>
-<p>如果你想生成所有发布的 Change log，要改为运行下面的命令。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conventional-changelog -p angular -i CHANGELOG.md -w -r 0</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>为了方便使用，可以将其写入<code>package.json</code>的<code>scripts</code>字段。</p>
-<blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;changelog&quot;</span>: <span class="string">&quot;conventional-changelog -p angular -i CHANGELOG.md -w -r 0&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>以后，直接运行下面的命令即可。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run changelog</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>（完）</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/6f0712da.html" rel="prev" title="一键部署 Hexo 博客到 GitHub Pages">
+                  <i class="fa fa-chevron-left"></i> 一键部署 Hexo 博客到 GitHub Pages
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -827,6 +413,12 @@
 
 
 
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
 </div>
   </main>
 
