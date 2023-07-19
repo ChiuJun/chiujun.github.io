@@ -1,6 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>MB、MiB与Mbps之间的区别与联系</title>
+    <url>/posts/38cbcb60.html</url>
+    <content><![CDATA[<p>这个话题的由头是在<code>HCIE-Datacom</code>试听课程中老师提到了以<a href="https://en.wikipedia.org/wiki/Ethernet_hub">太网集线器（Ethernet Hub）</a>可以工作在<code>10BASE-T</code>以太网中，而其中的数字<code>10</code>指的是带宽（Bandwidth）也就是数据传输速率为<code>10 Mbit/s</code>，也可以写作<code>10 Mbps</code>。这两者的<code>M</code>前缀都是<code>mega</code>的符号表示，<code>mega</code>等同于<span class="math inline">\(10^6\)</span>。众所周知<code>1 Byte = 8 bits</code>，所以可以得出<code>10 Mbit/s = 10/8 MB/s = 1.25 MB/s</code>。</p>
+<p>以上的推论看起来似乎没什么问题，但转念一想不对啊，我的概念里不应该是<code>1 MB = 1024 KB = 1024*1024 B</code>，这乘数<span class="math inline">\(10^6\)</span>与<span class="math inline">\(2^{20}\)</span>都不一样怎么能直接除8呢？于是转而Google之搞清楚了其中的细节对错：</p>
+<ol type="1">
+<li>老师是对的我是错的</li>
+<li>历史原因这两单位容易被不规范使用（混用、误用）</li>
+<li><code>1 MB = 1000 KB = 1000*1000 B</code></li>
+<li><code>1 MiB = 1024 KiB = 1024*1024 B</code></li>
+</ol>
+<h2 id="mbmegabyte">MB(megabyte)</h2>
+<p><code>megabyte</code>是信息计量单位<code>byte</code>的倍数单位，多用于信息技术领域表示数据量<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。其前缀<code>mega</code>是<a href="https://en.wikipedia.org/wiki/International_System_of_Units">国际单位制（International System of Units，SI）</a>规定的单位前缀，符号为<code>M</code>。因其换算关系为<code>10</code>的幂次，又被称为十进制前缀。</p>
+<p>国际单位制由<a href="https://www.bipm.org/en/contact">国际计量局（Bureau international des poids et mesures，BIPM）</a>制定，查阅其官方网站和标准文档都有相关的<a href="https://www.bipm.org/en/measurement-units/si-prefixes">描述</a></p>
+<blockquote>
+<p>Decimal multiples and submultiples of SI units can be written using the SI prefixes listed below:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Symbol</th>
+<th style="text-align: left;">Multiplying factor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">quetta</td>
+<td style="text-align: left;">Q</td>
+<td style="text-align: left;"><span class="math inline">\(10^{30}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ronna</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: left;"><span class="math inline">\(10^{27}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yotta</td>
+<td style="text-align: left;">Y</td>
+<td style="text-align: left;"><span class="math inline">\(10^{24}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">zetta</td>
+<td style="text-align: left;">Z</td>
+<td style="text-align: left;"><span class="math inline">\(10^{21}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">exa</td>
+<td style="text-align: left;">E</td>
+<td style="text-align: left;"><span class="math inline">\(10^{18}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">peta</td>
+<td style="text-align: left;">P</td>
+<td style="text-align: left;"><span class="math inline">\(10^{15}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tera</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;"><span class="math inline">\(10^{12}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">giga</td>
+<td style="text-align: left;">G</td>
+<td style="text-align: left;"><span class="math inline">\(10^{9}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mega</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;"><span class="math inline">\(10^{6}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">kilo</td>
+<td style="text-align: left;">k</td>
+<td style="text-align: left;"><span class="math inline">\(10^{3}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hecto</td>
+<td style="text-align: left;">h</td>
+<td style="text-align: left;"><span class="math inline">\(10^{2}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">deca</td>
+<td style="text-align: left;">da</td>
+<td style="text-align: left;"><span class="math inline">\(10^{1}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">deci</td>
+<td style="text-align: left;">d</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-1}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">centi</td>
+<td style="text-align: left;">c</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-2}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">milli</td>
+<td style="text-align: left;">m</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-3}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">micro</td>
+<td style="text-align: left;">µ</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-6}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nano</td>
+<td style="text-align: left;">n</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-9}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pico</td>
+<td style="text-align: left;">p</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-12}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">femto</td>
+<td style="text-align: left;">f</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-15}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">atto</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-18}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">zepto</td>
+<td style="text-align: left;">z</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-21}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yocto</td>
+<td style="text-align: left;">y</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-24}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ronto</td>
+<td style="text-align: left;">r</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-27}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">quecto</td>
+<td style="text-align: left;">q</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-30}\)</span></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h2 id="mibmebibyte">MiB(mebibyte)</h2>
+<p><code>mebibyte</code>同样是信息计量单位<code>byte</code>的倍数单位，其前缀<code>mebi</code>是<a href="https://iec.ch/homepage">国际电工委员会（International Electrotechnical Commission，IEC）</a>规定的单位前缀，符号为<code>Mi</code>，由国际单位制（International System of Units，SI）的十进制单位前缀<code>mega</code>衍生而来，词源为<code>megabinary</code>。因其换算关系为<code>2</code>的幂次，又被称为二进制前缀。</p>
+<p>该单位在 <a href="https://en.wikipedia.org/wiki/IEC_60027">IEC 60027-2</a> 标准中描述，该标准已被各国际组织广泛接受<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>，目前最新的版本是 <a href="https://webstore.iec.ch/publication/30633">IEC 60027-2:2019</a> 。IEC 最早在 <a href="https://webstore.iec.ch/publication/12253">IEC 60027-2:1972/AMD2:1999</a> 作出了明确定义并与国际单位制的十进制前缀区分。没有找到历史版本的文档可以下载，贴一个博客上看到的图<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>。另外该博主是在实际应用中发现的该问题，比较具有参考价值。</p>
+<figure>
+<img data-src="https://cdn.jsdelivr.net/gh/ChiuJun/img-hosting@main/img/202307192235190.jpg" alt="" /><figcaption>image-202307192235190</figcaption>
+</figure>
+<h2 id="mbpsmegabit-per-second">Mbps(megabit per second)</h2>
+<p><code>megabit per second</code>与前两者不同，用于衡量数据传输速率，是<code>bit per second</code>的倍数单位。<code>Mbps</code>是其符号<code>Mbit/s</code>或<code>Mb/s</code>的常见缩写，其前缀<code>mega</code>同样是<a href="https://en.wikipedia.org/wiki/International_System_of_Units">国际单位制（International System of Units，SI）</a>规定的单位前缀，符号为<code>M</code>。<code>bit per second</code>的符号是<code>bit/s</code>，是<code>bit</code>与<code>s</code>的导出单位，同样具有二进制前缀的版本<code>mebibit per second</code>，符号<code>Mibit/s</code>。</p>
+<p>以下是摘自<a href="https://en.wikipedia.org/wiki/Data-rate_units">维基</a>的表格：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Name</th>
+<th style="text-align: center;">Symbol</th>
+<th style="text-align: center;">Multiple</th>
+<th>Multiple</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a href="https://en.wikipedia.org/wiki/Bit_rate">bit per second</a></td>
+<td style="text-align: center;">bit/s</td>
+<td style="text-align: center;">1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><a href="https://en.wikipedia.org/wiki/Metric_prefix">Metric prefixes</a> (<a href="https://en.wikipedia.org/wiki/International_System_of_Units">SI</a>)</td>
+<td style="text-align: center;"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a href="https://en.wikipedia.org/wiki/Data-rate_units#Kilobit_per_second">kilobit per second</a></td>
+<td style="text-align: center;">kbit/s</td>
+<td style="text-align: center;"><span class="math inline">\(10^{3}\)</span></td>
+<td><span class="math inline">\(1000^{1}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a href="https://en.wikipedia.org/wiki/Data-rate_units#Megabit_per_second">megabit per second</a></td>
+<td style="text-align: center;">Mbit/s</td>
+<td style="text-align: center;"><span class="math inline">\(10^{6}\)</span></td>
+<td><span class="math inline">\(1000^{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a href="https://en.wikipedia.org/wiki/Data-rate_units#Gigabit_per_second">gigabit per second</a></td>
+<td style="text-align: center;">Gbit/s</td>
+<td style="text-align: center;"><span class="math inline">\(10^{9}\)</span></td>
+<td><span class="math inline">\(1000^{3}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a href="https://en.wikipedia.org/wiki/Data-rate_units#Terabit_per_second">terabit per second</a></td>
+<td style="text-align: center;">Tbit/s</td>
+<td style="text-align: center;"><span class="math inline">\(10^{12}\)</span></td>
+<td><span class="math inline">\(1000^{4}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><a href="https://en.wikipedia.org/wiki/Binary_prefix">Binary prefixes</a> (<a href="https://en.wikipedia.org/wiki/ISO/IEC_80000">IEC 80000-13</a>)</td>
+<td style="text-align: center;"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a href="https://en.wikipedia.org/wiki/Data-rate_units#Kilobit_per_second">kibibit per second</a></td>
+<td style="text-align: center;">Kibit/s</td>
+<td style="text-align: center;"><span class="math inline">\(2^{10}\)</span></td>
+<td><span class="math inline">\(1024^{1}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a href="https://en.wikipedia.org/wiki/Data-rate_units#Megabit_per_second">mebibit per second</a></td>
+<td style="text-align: center;">Mibit/s</td>
+<td style="text-align: center;"><span class="math inline">\(2^{20}\)</span></td>
+<td><span class="math inline">\(1024^{2}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a href="https://en.wikipedia.org/wiki/Data-rate_units#Gigabit_per_second">gibibit per second</a></td>
+<td style="text-align: center;">Gibit/s</td>
+<td style="text-align: center;"><span class="math inline">\(2^{30}\)</span></td>
+<td><span class="math inline">\(1024^{3}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a href="https://en.wikipedia.org/wiki/Data-rate_units#Terabit_per_second">tebibit per second</a></td>
+<td style="text-align: center;">Tibit/s</td>
+<td style="text-align: center;"><span class="math inline">\(2^{40}\)</span></td>
+<td><span class="math inline">\(1024^{4}\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="实际验证">实际验证</h2>
+<p>以上是标准制定的理想情况，实际上由于标准制定晚于实际应用，这是一个历史遗留问题，有许多场合存在单位的错用混用情况。为了防止大家错用单位，其实 SI 标准文档里在其单位前缀的描述部分还作了相应提示：</p>
+<blockquote>
+<p>The SI prefixes refer strictly to powers of 10. They should not be used to indicate powers of 2 (for example, one kilobit represents 1000 bits and not 1024 bits).</p>
+</blockquote>
+<p>有趣的是大部分人印象中的<del><code>1 MB = 1024 KB = 1024*1024 B</code></del>并不只是来源于教科书，还来源于生活日常使用各种软件。例如微软的<code>Windows</code>操作系统，同一个文件拷贝到<code>macOS</code>操作系统后变大、<code>1TB</code>容量硬盘显示只有<code>930GB</code>容量，就是因为<code>Windows</code>使用的是十进制前缀的符号<code>TB</code>、<code>GB</code>、<code>MB</code>、<code>KB</code>，换算关系则是用的二进制前缀的 <span class="math inline">\(2^{40}\)</span>、<span class="math inline">\(2^{30}\)</span>、<span class="math inline">\(2^{20}\)</span>、<span class="math inline">\(2^{10}\)</span>。而硬盘厂商和<code>macOS</code>则规范使用了单位与换算关系，所以一直都是<del>巨硬</del>错了，而不是硬盘厂商或苹果的<code>macOS</code>。（虽然微软已经在修正这个历史遗留问题了...</p>
+<blockquote>
+<p>有哪些事实没有一定计算机知识的人不会相信？ - Qi K的回答 - 知乎 https://www.zhihu.com/question/288115796/answer/523089229</p>
+<p>非常意外地发现很多软粉在评论区疯狂地为微软洗地？？？</p>
+<p>如果你要教育我说微软这样改不符合用户习惯，有兼容性问题等等等等，我建议你免开尊口，因为微软已经在改了。我举一个例子：</p>
+<p><a href="https://docs.microsoft.com/en-us/windows/win32/api/shlwapi/nf-shlwapi-strformatbytesizea">StrFormatByteSizeA function (shlwapi.h) - Win32 apps</a></p>
+<p>这是一个名叫StrFormatByteSizeA的Win32 API函数。它的作用是将字节数转换成以KB、MB结尾的字符串。这个函数的文档里有这么一句话：</p>
+<blockquote>
+<p>In Windows 10, size is reported in base 10 rather than base 2. For example, 1 KB is 1000 bytes rather than 1024.</p>
+</blockquote>
+<p>从Windows 10开始，这个函数返回的不再按照1024进位的方式转换，而是采用国际单位制（SI）的规则，返回1000进位转换后的结果。</p>
+<p>说白了，微软并不认为一个小小的转换、一个简单的字符串会有什么兼容性问题，API这种最不应该改的东西说改就改了，其余的还不改无非就是懒得动弹，或者傲娇而已。</p>
+</blockquote>
+<p>博主顺道在<code>macOS Monterey 12.6.6</code>系统做了下验证：</p>
+<p>首先查看<code>man-pages</code>描述</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ man dd</span><br><span class="line"></span><br><span class="line">     bs=n     Set both input and output block size to n bytes, superseding the</span><br><span class="line">              ibs and obs operands.  If no conversion values other than noerror,</span><br><span class="line">              notrunc or sync are specified, then each input block is copied to</span><br><span class="line">              the output as a single block without any aggregation of short</span><br><span class="line">              blocks.</span><br><span class="line"></span><br><span class="line">     Where sizes or speed are specified, a decimal, octal, or hexadecimal number</span><br><span class="line">     of bytes is expected.  If the number ends with a “b”, “k”, “m”, “g”, “t”,</span><br><span class="line">     “p”, or “w”, the number is multiplied by 512, 1024 (1K), 1048576 (1M),</span><br><span class="line">     1073741824 (1G), 1099511627776 (1T), 1125899906842624 (1P) or the number of</span><br><span class="line">     bytes in an integer, respectively.  Two or more numbers may be separated by</span><br><span class="line">     an “x” to indicate a product.</span><br><span class="line"></span><br><span class="line">$ man ls</span><br><span class="line"></span><br><span class="line">     -h      When used with the -l option, use unit suffixes: Byte, Kilobyte,</span><br><span class="line">             Megabyte, Gigabyte, Terabyte and Petabyte in order to reduce the</span><br><span class="line">             number of digits to four or fewer using base 2 for sizes.  This</span><br><span class="line">             option is not defined in IEEE Std 1003.1-2008 (“POSIX.1”).</span><br></pre></td></tr></table></figure>
+<p>生成相应字节数的文件后分别在终端和访达查看</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=1KiB.file bs=1k count=1</span><br><span class="line">1+0 records <span class="keyword">in</span></span><br><span class="line">1+0 records out</span><br><span class="line">1024 bytes transferred <span class="keyword">in</span> 0.000066 secs (15515152 bytes/sec)</span><br><span class="line">$ <span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=1MiB.file bs=1m count=1</span><br><span class="line">1+0 records <span class="keyword">in</span></span><br><span class="line">1+0 records out</span><br><span class="line">1048576 bytes transferred <span class="keyword">in</span> 0.000274 secs (3826919708 bytes/sec)</span><br><span class="line">$ <span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=1GiB.file bs=1g count=1</span><br><span class="line">1+0 records <span class="keyword">in</span></span><br><span class="line">1+0 records out</span><br><span class="line">1073741824 bytes transferred <span class="keyword">in</span> 0.747626 secs (1436201823 bytes/sec)</span><br><span class="line">$ <span class="built_in">ls</span> -lS  </span><br><span class="line">total 2099208</span><br><span class="line">-rw-r--r--  1 user  group  1073741824  7 12 22:48 1GiB.file</span><br><span class="line">-rw-r--r--  1 user  group     1048576  7 12 22:48 1MiB.file</span><br><span class="line">-rw-r--r--  1 user  group        1024  7 12 22:48 1KiB.file</span><br><span class="line">$ <span class="built_in">ls</span> -lhS</span><br><span class="line">total 2099208</span><br><span class="line">-rw-r--r--  1 user  group   1.0G  7 12 22:48 1GiB.file</span><br><span class="line">-rw-r--r--  1 user  group   1.0M  7 12 22:48 1MiB.file</span><br><span class="line">-rw-r--r--  1 user  group   1.0K  7 12 22:48 1KiB.file</span><br></pre></td></tr></table></figure>
+<p>访达似乎对于小文件不愿意显示小数点后面的数字，另外群晖的<code>DSM</code>操作系统里<code>1TB</code>硬盘也显示为<code>930GB</code>(<span class="math inline">\(10^9/2^{30}\)</span>)。说到这其实并没有完全的对与错，只需要在一些严肃的场合明确区分就没有问题了。 <img data-src="https://cdn.jsdelivr.net/gh/ChiuJun/img-hosting@main/img/202307122304175.png" alt="image-20230712230405095" /></p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Wikimedia Foundation (2023) <em>Megabyte</em>, <em>Wikipedia</em>. Available at: https://en.wikipedia.org/wiki/Megabyte (Accessed: 18 July 2023).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>Wikimedia Foundation (2023) <em>Megabyte</em>, <em>Wikipedia</em>. Available at: https://en.wikipedia.org/wiki/Megabyte (Accessed: 18 July 2023).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>Wang, W. (2022) <em>1K bit = 1024 bit？</em>, <em>17哥</em>. Available at: https://wangwei1237.github.io/2022/06/19/Does-1Kbit-equal-1024bit/ (Accessed: 19 July 2023).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+]]></content>
+  </entry>
+  <entry>
     <title>一键部署 Hexo 博客到 GitHub Pages</title>
     <url>/posts/6f0712da.html</url>
     <content><![CDATA[<p><a href="https://hexo.io/">Hexo</a> 是一个快速、简洁且高效的博客框架，只需一条指令即可部署到 GitHub Pages, Heroku 或其他平台<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。</p>

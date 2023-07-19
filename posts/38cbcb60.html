@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/uploads/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/uploads/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chiujun.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="这个话题的由头是在HCIE-Datacom试听课程中老师提到了以太网集线器（Ethernet Hub）可以工作在10BASE-T以太网中，而其中的数字10指的是带宽（Bandwidth）也就是数据传输速率为10 Mbit&#x2F;s，也可以写作10 Mbps。这两者的M前缀都是mega的符号表示，mega等同于\(10^6\)。众所周知1 Byte &#x3D; 8 bits，所以可以得出10 Mbit&#x2F;s &#x3D; 1">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="MB、MiB与Mbps之间的区别与联系">
+<meta property="og:url" content="https://chiujun.github.io/posts/38cbcb60.html">
+<meta property="og:site_name" content="ChiuJun&#39;s Blog">
+<meta property="og:description" content="这个话题的由头是在HCIE-Datacom试听课程中老师提到了以太网集线器（Ethernet Hub）可以工作在10BASE-T以太网中，而其中的数字10指的是带宽（Bandwidth）也就是数据传输速率为10 Mbit&#x2F;s，也可以写作10 Mbps。这两者的M前缀都是mega的符号表示，mega等同于\(10^6\)。众所周知1 Byte &#x3D; 8 bits，所以可以得出10 Mbit&#x2F;s &#x3D; 1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ChiuJun/img-hosting@main/img/202307192235190.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ChiuJun/img-hosting@main/img/202307122304175.png">
+<meta property="article:published_time" content="2023-07-12T21:39:20.000Z">
+<meta property="article:modified_time" content="2023-07-19T23:52:00.000Z">
+<meta property="article:author" content="ChiuJun">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ChiuJun/img-hosting@main/img/202307192235190.jpg">
+
+
+<link rel="canonical" href="https://chiujun.github.io/posts/38cbcb60.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://chiujun.github.io/posts/38cbcb60.html","path":"posts/38cbcb60.html","title":"MB、MiB与Mbps之间的区别与联系"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MB、MiB与Mbps之间的区别与联系 | ChiuJun's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ChiuJun's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mbmegabyte"><span class="nav-number">1.</span> <span class="nav-text">MB(megabyte)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mibmebibyte"><span class="nav-number">2.</span> <span class="nav-text">MiB(mebibyte)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mbpsmegabit-per-second"><span class="nav-number">3.</span> <span class="nav-text">Mbps(megabit per second)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E9%AA%8C%E8%AF%81"><span class="nav-number">4.</span> <span class="nav-text">实际验证</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ChiuJun"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">ChiuJun</p>
+  <div class="site-description" itemprop="description">Personal Blog</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ChiuJun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ChiuJun" rel="noopener me external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lj.chiu@outlook.com" title="E-Mail → mailto:lj.chiu@outlook.com" rel="noopener me external nofollow noreferrer" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener external nofollow noreferrer" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chiujun.github.io/posts/38cbcb60.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="ChiuJun">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChiuJun's Blog">
+      <meta itemprop="description" content="Personal Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MB、MiB与Mbps之间的区别与联系 | ChiuJun's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MB、MiB与Mbps之间的区别与联系
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-12 21:39:20" itemprop="dateCreated datePublished" datetime="2023-07-12T21:39:20+00:00">2023-07-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-19 23:52:00" itemprop="dateModified" datetime="2023-07-19T23:52:00+00:00">2023-07-19</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/posts/38cbcb60.html#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/38cbcb60.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>这个话题的由头是在<code>HCIE-Datacom</code>试听课程中老师提到了以<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Ethernet_hub">太网集线器（Ethernet Hub）</a>可以工作在<code>10BASE-T</code>以太网中，而其中的数字<code>10</code>指的是带宽（Bandwidth）也就是数据传输速率为<code>10 Mbit/s</code>，也可以写作<code>10 Mbps</code>。这两者的<code>M</code>前缀都是<code>mega</code>的符号表示，<code>mega</code>等同于<span class="math inline">\(10^6\)</span>。众所周知<code>1 Byte = 8 bits</code>，所以可以得出<code>10 Mbit/s = 10/8 MB/s = 1.25 MB/s</code>。</p>
+<p>以上的推论看起来似乎没什么问题，但转念一想不对啊，我的概念里不应该是<code>1 MB = 1024 KB = 1024*1024 B</code>，这乘数<span class="math inline">\(10^6\)</span>与<span class="math inline">\(2^{20}\)</span>都不一样怎么能直接除8呢？于是转而Google之搞清楚了其中的细节对错：</p>
+<ol type="1">
+<li>老师是对的我是错的</li>
+<li>历史原因这两单位容易被不规范使用（混用、误用）</li>
+<li><code>1 MB = 1000 KB = 1000*1000 B</code></li>
+<li><code>1 MiB = 1024 KiB = 1024*1024 B</code></li>
+</ol>
+<h2 id="mbmegabyte">MB(megabyte)</h2>
+<p><code>megabyte</code>是信息计量单位<code>byte</code>的倍数单位，多用于信息技术领域表示数据量<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。其前缀<code>mega</code>是<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/International_System_of_Units">国际单位制（International System of Units，SI）</a>规定的单位前缀，符号为<code>M</code>。因其换算关系为<code>10</code>的幂次，又被称为十进制前缀。</p>
+<p>国际单位制由<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.bipm.org/en/contact">国际计量局（Bureau international des poids et mesures，BIPM）</a>制定，查阅其官方网站和标准文档都有相关的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.bipm.org/en/measurement-units/si-prefixes">描述</a></p>
+<blockquote>
+<p>Decimal multiples and submultiples of SI units can be written using the SI prefixes listed below:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Symbol</th>
+<th style="text-align: left;">Multiplying factor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">quetta</td>
+<td style="text-align: left;">Q</td>
+<td style="text-align: left;"><span class="math inline">\(10^{30}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ronna</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: left;"><span class="math inline">\(10^{27}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yotta</td>
+<td style="text-align: left;">Y</td>
+<td style="text-align: left;"><span class="math inline">\(10^{24}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">zetta</td>
+<td style="text-align: left;">Z</td>
+<td style="text-align: left;"><span class="math inline">\(10^{21}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">exa</td>
+<td style="text-align: left;">E</td>
+<td style="text-align: left;"><span class="math inline">\(10^{18}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">peta</td>
+<td style="text-align: left;">P</td>
+<td style="text-align: left;"><span class="math inline">\(10^{15}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tera</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;"><span class="math inline">\(10^{12}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">giga</td>
+<td style="text-align: left;">G</td>
+<td style="text-align: left;"><span class="math inline">\(10^{9}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mega</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;"><span class="math inline">\(10^{6}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">kilo</td>
+<td style="text-align: left;">k</td>
+<td style="text-align: left;"><span class="math inline">\(10^{3}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hecto</td>
+<td style="text-align: left;">h</td>
+<td style="text-align: left;"><span class="math inline">\(10^{2}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">deca</td>
+<td style="text-align: left;">da</td>
+<td style="text-align: left;"><span class="math inline">\(10^{1}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">deci</td>
+<td style="text-align: left;">d</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-1}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">centi</td>
+<td style="text-align: left;">c</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-2}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">milli</td>
+<td style="text-align: left;">m</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-3}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">micro</td>
+<td style="text-align: left;">µ</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-6}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nano</td>
+<td style="text-align: left;">n</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-9}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pico</td>
+<td style="text-align: left;">p</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-12}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">femto</td>
+<td style="text-align: left;">f</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-15}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">atto</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-18}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">zepto</td>
+<td style="text-align: left;">z</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-21}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yocto</td>
+<td style="text-align: left;">y</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-24}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ronto</td>
+<td style="text-align: left;">r</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-27}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">quecto</td>
+<td style="text-align: left;">q</td>
+<td style="text-align: left;"><span class="math inline">\(10^{-30}\)</span></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h2 id="mibmebibyte">MiB(mebibyte)</h2>
+<p><code>mebibyte</code>同样是信息计量单位<code>byte</code>的倍数单位，其前缀<code>mebi</code>是<a target="_blank" rel="noopener external nofollow noreferrer" href="https://iec.ch/homepage">国际电工委员会（International Electrotechnical Commission，IEC）</a>规定的单位前缀，符号为<code>Mi</code>，由国际单位制（International System of Units，SI）的十进制单位前缀<code>mega</code>衍生而来，词源为<code>megabinary</code>。因其换算关系为<code>2</code>的幂次，又被称为二进制前缀。</p>
+<p>该单位在 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/IEC_60027">IEC 60027-2</a> 标准中描述，该标准已被各国际组织广泛接受<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>，目前最新的版本是 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://webstore.iec.ch/publication/30633">IEC 60027-2:2019</a> 。IEC 最早在 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://webstore.iec.ch/publication/12253">IEC 60027-2:1972/AMD2:1999</a> 作出了明确定义并与国际单位制的十进制前缀区分。没有找到历史版本的文档可以下载，贴一个博客上看到的图<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>。另外该博主是在实际应用中发现的该问题，比较具有参考价值。</p>
+<figure>
+<img data-src="https://cdn.jsdelivr.net/gh/ChiuJun/img-hosting@main/img/202307192235190.jpg" alt="" /><figcaption>image-202307192235190</figcaption>
+</figure>
+<h2 id="mbpsmegabit-per-second">Mbps(megabit per second)</h2>
+<p><code>megabit per second</code>与前两者不同，用于衡量数据传输速率，是<code>bit per second</code>的倍数单位。<code>Mbps</code>是其符号<code>Mbit/s</code>或<code>Mb/s</code>的常见缩写，其前缀<code>mega</code>同样是<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/International_System_of_Units">国际单位制（International System of Units，SI）</a>规定的单位前缀，符号为<code>M</code>。<code>bit per second</code>的符号是<code>bit/s</code>，是<code>bit</code>与<code>s</code>的导出单位，同样具有二进制前缀的版本<code>mebibit per second</code>，符号<code>Mibit/s</code>。</p>
+<p>以下是摘自<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Data-rate_units">维基</a>的表格：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Name</th>
+<th style="text-align: center;">Symbol</th>
+<th style="text-align: center;">Multiple</th>
+<th>Multiple</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Bit_rate">bit per second</a></td>
+<td style="text-align: center;">bit/s</td>
+<td style="text-align: center;">1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Metric_prefix">Metric prefixes</a> (<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/International_System_of_Units">SI</a>)</td>
+<td style="text-align: center;"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Data-rate_units#Kilobit_per_second">kilobit per second</a></td>
+<td style="text-align: center;">kbit/s</td>
+<td style="text-align: center;"><span class="math inline">\(10^{3}\)</span></td>
+<td><span class="math inline">\(1000^{1}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Data-rate_units#Megabit_per_second">megabit per second</a></td>
+<td style="text-align: center;">Mbit/s</td>
+<td style="text-align: center;"><span class="math inline">\(10^{6}\)</span></td>
+<td><span class="math inline">\(1000^{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Data-rate_units#Gigabit_per_second">gigabit per second</a></td>
+<td style="text-align: center;">Gbit/s</td>
+<td style="text-align: center;"><span class="math inline">\(10^{9}\)</span></td>
+<td><span class="math inline">\(1000^{3}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Data-rate_units#Terabit_per_second">terabit per second</a></td>
+<td style="text-align: center;">Tbit/s</td>
+<td style="text-align: center;"><span class="math inline">\(10^{12}\)</span></td>
+<td><span class="math inline">\(1000^{4}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Binary_prefix">Binary prefixes</a> (<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/ISO/IEC_80000">IEC 80000-13</a>)</td>
+<td style="text-align: center;"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Data-rate_units#Kilobit_per_second">kibibit per second</a></td>
+<td style="text-align: center;">Kibit/s</td>
+<td style="text-align: center;"><span class="math inline">\(2^{10}\)</span></td>
+<td><span class="math inline">\(1024^{1}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Data-rate_units#Megabit_per_second">mebibit per second</a></td>
+<td style="text-align: center;">Mibit/s</td>
+<td style="text-align: center;"><span class="math inline">\(2^{20}\)</span></td>
+<td><span class="math inline">\(1024^{2}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Data-rate_units#Gigabit_per_second">gibibit per second</a></td>
+<td style="text-align: center;">Gibit/s</td>
+<td style="text-align: center;"><span class="math inline">\(2^{30}\)</span></td>
+<td><span class="math inline">\(1024^{3}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Data-rate_units#Terabit_per_second">tebibit per second</a></td>
+<td style="text-align: center;">Tibit/s</td>
+<td style="text-align: center;"><span class="math inline">\(2^{40}\)</span></td>
+<td><span class="math inline">\(1024^{4}\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="实际验证">实际验证</h2>
+<p>以上是标准制定的理想情况，实际上由于标准制定晚于实际应用，这是一个历史遗留问题，有许多场合存在单位的错用混用情况。为了防止大家错用单位，其实 SI 标准文档里在其单位前缀的描述部分还作了相应提示：</p>
+<blockquote>
+<p>The SI prefixes refer strictly to powers of 10. They should not be used to indicate powers of 2 (for example, one kilobit represents 1000 bits and not 1024 bits).</p>
+</blockquote>
+<p>有趣的是大部分人印象中的<del><code>1 MB = 1024 KB = 1024*1024 B</code></del>并不只是来源于教科书，还来源于生活日常使用各种软件。例如微软的<code>Windows</code>操作系统，同一个文件拷贝到<code>macOS</code>操作系统后变大、<code>1TB</code>容量硬盘显示只有<code>930GB</code>容量，就是因为<code>Windows</code>使用的是十进制前缀的符号<code>TB</code>、<code>GB</code>、<code>MB</code>、<code>KB</code>，换算关系则是用的二进制前缀的 <span class="math inline">\(2^{40}\)</span>、<span class="math inline">\(2^{30}\)</span>、<span class="math inline">\(2^{20}\)</span>、<span class="math inline">\(2^{10}\)</span>。而硬盘厂商和<code>macOS</code>则规范使用了单位与换算关系，所以一直都是<del>巨硬</del>错了，而不是硬盘厂商或苹果的<code>macOS</code>。（虽然微软已经在修正这个历史遗留问题了...</p>
+<blockquote>
+<p>有哪些事实没有一定计算机知识的人不会相信？ - Qi K的回答 - 知乎 https://www.zhihu.com/question/288115796/answer/523089229</p>
+<p>非常意外地发现很多软粉在评论区疯狂地为微软洗地？？？</p>
+<p>如果你要教育我说微软这样改不符合用户习惯，有兼容性问题等等等等，我建议你免开尊口，因为微软已经在改了。我举一个例子：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.microsoft.com/en-us/windows/win32/api/shlwapi/nf-shlwapi-strformatbytesizea">StrFormatByteSizeA function (shlwapi.h) - Win32 apps</a></p>
+<p>这是一个名叫StrFormatByteSizeA的Win32 API函数。它的作用是将字节数转换成以KB、MB结尾的字符串。这个函数的文档里有这么一句话：</p>
+<blockquote>
+<p>In Windows 10, size is reported in base 10 rather than base 2. For example, 1 KB is 1000 bytes rather than 1024.</p>
+</blockquote>
+<p>从Windows 10开始，这个函数返回的不再按照1024进位的方式转换，而是采用国际单位制（SI）的规则，返回1000进位转换后的结果。</p>
+<p>说白了，微软并不认为一个小小的转换、一个简单的字符串会有什么兼容性问题，API这种最不应该改的东西说改就改了，其余的还不改无非就是懒得动弹，或者傲娇而已。</p>
+</blockquote>
+<p>博主顺道在<code>macOS Monterey 12.6.6</code>系统做了下验证：</p>
+<p>首先查看<code>man-pages</code>描述</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ man dd</span><br><span class="line"></span><br><span class="line">     bs=n     Set both input and output block size to n bytes, superseding the</span><br><span class="line">              ibs and obs operands.  If no conversion values other than noerror,</span><br><span class="line">              notrunc or sync are specified, then each input block is copied to</span><br><span class="line">              the output as a single block without any aggregation of short</span><br><span class="line">              blocks.</span><br><span class="line"></span><br><span class="line">     Where sizes or speed are specified, a decimal, octal, or hexadecimal number</span><br><span class="line">     of bytes is expected.  If the number ends with a “b”, “k”, “m”, “g”, “t”,</span><br><span class="line">     “p”, or “w”, the number is multiplied by 512, 1024 (1K), 1048576 (1M),</span><br><span class="line">     1073741824 (1G), 1099511627776 (1T), 1125899906842624 (1P) or the number of</span><br><span class="line">     bytes in an integer, respectively.  Two or more numbers may be separated by</span><br><span class="line">     an “x” to indicate a product.</span><br><span class="line"></span><br><span class="line">$ man ls</span><br><span class="line"></span><br><span class="line">     -h      When used with the -l option, use unit suffixes: Byte, Kilobyte,</span><br><span class="line">             Megabyte, Gigabyte, Terabyte and Petabyte in order to reduce the</span><br><span class="line">             number of digits to four or fewer using base 2 for sizes.  This</span><br><span class="line">             option is not defined in IEEE Std 1003.1-2008 (“POSIX.1”).</span><br></pre></td></tr></table></figure>
+<p>生成相应字节数的文件后分别在终端和访达查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=1KiB.file bs=1k count=1</span><br><span class="line">1+0 records <span class="keyword">in</span></span><br><span class="line">1+0 records out</span><br><span class="line">1024 bytes transferred <span class="keyword">in</span> 0.000066 secs (15515152 bytes/sec)</span><br><span class="line">$ <span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=1MiB.file bs=1m count=1</span><br><span class="line">1+0 records <span class="keyword">in</span></span><br><span class="line">1+0 records out</span><br><span class="line">1048576 bytes transferred <span class="keyword">in</span> 0.000274 secs (3826919708 bytes/sec)</span><br><span class="line">$ <span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=1GiB.file bs=1g count=1</span><br><span class="line">1+0 records <span class="keyword">in</span></span><br><span class="line">1+0 records out</span><br><span class="line">1073741824 bytes transferred <span class="keyword">in</span> 0.747626 secs (1436201823 bytes/sec)</span><br><span class="line">$ <span class="built_in">ls</span> -lS  </span><br><span class="line">total 2099208</span><br><span class="line">-rw-r--r--  1 user  group  1073741824  7 12 22:48 1GiB.file</span><br><span class="line">-rw-r--r--  1 user  group     1048576  7 12 22:48 1MiB.file</span><br><span class="line">-rw-r--r--  1 user  group        1024  7 12 22:48 1KiB.file</span><br><span class="line">$ <span class="built_in">ls</span> -lhS</span><br><span class="line">total 2099208</span><br><span class="line">-rw-r--r--  1 user  group   1.0G  7 12 22:48 1GiB.file</span><br><span class="line">-rw-r--r--  1 user  group   1.0M  7 12 22:48 1MiB.file</span><br><span class="line">-rw-r--r--  1 user  group   1.0K  7 12 22:48 1KiB.file</span><br></pre></td></tr></table></figure>
+<p>访达似乎对于小文件不愿意显示小数点后面的数字，另外群晖的<code>DSM</code>操作系统里<code>1TB</code>硬盘也显示为<code>930GB</code>(<span class="math inline">\(10^9/2^{30}\)</span>)。说到这其实并没有完全的对与错，只需要在一些严肃的场合明确区分就没有问题了。 <img data-src="https://cdn.jsdelivr.net/gh/ChiuJun/img-hosting@main/img/202307122304175.png" alt="image-20230712230405095" /></p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Wikimedia Foundation (2023) <em>Megabyte</em>, <em>Wikipedia</em>. Available at: https://en.wikipedia.org/wiki/Megabyte (Accessed: 18 July 2023).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>Wikimedia Foundation (2023) <em>Megabyte</em>, <em>Wikipedia</em>. Available at: https://en.wikipedia.org/wiki/Megabyte (Accessed: 18 July 2023).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>Wang, W. (2022) <em>1K bit = 1024 bit？</em>, <em>17哥</em>. Available at: https://wangwei1237.github.io/2022/06/19/Does-1Kbit-equal-1024bit/ (Accessed: 19 July 2023).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>ChiuJun
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://chiujun.github.io/posts/38cbcb60.html" title="MB、MiB与Mbps之间的区别与联系">https://chiujun.github.io/posts/38cbcb60.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/ba2ea806.html" rel="prev" title="常见加密算法在Java中的使用">
+                  <i class="fa fa-chevron-left"></i> 常见加密算法在Java中的使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">ChiuJun</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">8k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">30 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener external nofollow noreferrer" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  <style>
+    .footer .footer-inner .wordcount {
+      display: none;
+    }
+  </style>
+  <div class="moe-beian">
+    <a href="https://icp.gov.moe/?keyword=20230706" rel="noopener external nofollow noreferrer" target="_blank" one-link-mark="yes">
+      萌ICP备20230706号
+    </a>
+  </div>
+  <style>
+    .footer .footer-inner .copyright {
+      order: -1;
+    }
+    .footer .footer-inner .moe-beian {
+      order: -1;
+    }
+  </style>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.12/pdfobject.min.js","integrity":"sha256-g2xji1rlE3KsGVClvuxTbcR0Kn2+wtQADSff2Tbb4zA="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.3/mermaid.min.js","integrity":"sha256-JFptYy4KzJ5OQP+Q9fubNf3cxpPPmZKqUOovyEONKrQ="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"chiujun","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
