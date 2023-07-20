@@ -273,6 +273,15 @@
 </ol>
 </section>
 ]]></content>
+      <categories>
+        <category>基础知识</category>
+      </categories>
+      <tags>
+        <tag>IEC</tag>
+        <tag>SI</tag>
+        <tag>网络</tag>
+        <tag>标准</tag>
+      </tags>
   </entry>
   <entry>
     <title>一键部署 Hexo 博客到 GitHub Pages</title>
