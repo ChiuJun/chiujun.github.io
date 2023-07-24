@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/uploads/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/uploads/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chiujun.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言 为什么会有这种疑惑呢？因为在学习计算机网络基础的时候总会看到相关的网络设备介绍，但似乎搜不到网桥这种设备有零售。同时网桥这种字眼在一些Linux操作系统中又很常见，比如OpenWrt。遂使用中文搜索，点进了知乎的一个提问越看越迷糊，包括常见的问答社区 Super User 中的一篇帖子也有回答错误连篇。以至于前期甚至混淆了虚拟机软件 VirtualBox 中提供的网络适配器类型桥接适配器(B">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="什么是网桥">
+<meta property="og:url" content="https://chiujun.github.io/posts/52e9b435.html">
+<meta property="og:site_name" content="ChiuJun&#39;s Blog">
+<meta property="og:description" content="引言 为什么会有这种疑惑呢？因为在学习计算机网络基础的时候总会看到相关的网络设备介绍，但似乎搜不到网桥这种设备有零售。同时网桥这种字眼在一些Linux操作系统中又很常见，比如OpenWrt。遂使用中文搜索，点进了知乎的一个提问越看越迷糊，包括常见的问答社区 Super User 中的一篇帖子也有回答错误连篇。以至于前期甚至混淆了虚拟机软件 VirtualBox 中提供的网络适配器类型桥接适配器(B">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-24T23:50:00.000Z">
+<meta property="article:modified_time" content="2023-07-24T23:50:00.000Z">
+<meta property="article:author" content="ChiuJun">
+<meta property="article:tag" content="网络">
+<meta property="article:tag" content="IEEE Standard">
+<meta property="article:tag" content="Network bridge">
+<meta property="article:tag" content="Network switch">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://chiujun.github.io/posts/52e9b435.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://chiujun.github.io/posts/52e9b435.html","path":"posts/52e9b435.html","title":"什么是网桥"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>什么是网桥 | ChiuJun's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ChiuJun's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2"><span class="nav-number">3.</span> <span class="nav-text">发展历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%82%E8%AE%B0"><span class="nav-number">4.</span> <span class="nav-text">杂记</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ChiuJun"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">ChiuJun</p>
+  <div class="site-description" itemprop="description">Personal Blog</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ChiuJun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ChiuJun" rel="noopener me external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lj.chiu@outlook.com" title="E-Mail → mailto:lj.chiu@outlook.com" rel="noopener me external nofollow noreferrer" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener external nofollow noreferrer" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chiujun.github.io/posts/52e9b435.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="ChiuJun">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChiuJun's Blog">
+      <meta itemprop="description" content="Personal Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="什么是网桥 | ChiuJun's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          什么是网桥
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-24 23:50:00" itemprop="dateCreated datePublished" datetime="2023-07-24T23:50:00+00:00">2023-07-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/posts/52e9b435.html#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/52e9b435.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="引言">引言</h2>
+<p>为什么会有这种疑惑呢？因为在学习计算机网络基础的时候总会看到相关的网络设备介绍，但似乎搜不到网桥这种设备有零售。同时网桥这种字眼在一些<code>Linux</code>操作系统中又很常见，比如<code>OpenWrt</code>。遂使用中文搜索，点进了知乎的一个<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.zhihu.com/question/67473683">提问</a>越看越迷糊，包括常见的问答社区 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://superuser.com/">Super User</a> 中的一篇<a target="_blank" rel="noopener external nofollow noreferrer" href="https://superuser.com/questions/696018/is-the-idea-that-a-switch-is-a-multiport-bridge-accurate">帖子</a>也有回答错误连篇。以至于前期甚至混淆了虚拟机软件 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.virtualbox.org/">VirtualBox</a> 中提供的网络适配器类型<code>桥接适配器(Bridged Adapter)</code>与网桥的概念，遂决定多查找资料搞清楚网桥到底是个什么玩意。</p>
+<h2 id="定义">定义</h2>
+<p>什么是网桥？可以用 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.oreilly.com/library/view/tcpip-illustrated-volume/9780132808200/"><em>TCP/IP Illustrated,Volume 1 The Protocols</em></a> 中的一句话概括：</p>
+<blockquote>
+<p><em>TCP/IP Illustrated,Volume 1 The Protocols</em></p>
+<p><strong>3.4 Bridges and Switches</strong></p>
+<p>The IEEE 802.1d standard specifies the operation of bridges, and thus switches, which are essentially high-performance bridges.</p>
+<p>IEEE 802.1d 标准规定了网桥的操作，交换机本质上是高性能的网桥。</p>
+</blockquote>
+<p>翻一翻 IEEE 802.1d 标准的文档，网桥被定义为一个网络桥接设备。符合其定义并具有相应功能的都可以被称为网桥，该标准定义的网桥要求至少拥有两个端口，而交换机则是一种多端口网桥（Multiport Bridge）设备。虽然在好几个地方看到说网桥和交换机可以作为同义替换的术语，但主观感受是交换机这个名字已经近乎替代了网桥。</p>
+<blockquote>
+<p><em>IEEE Std 802.1D-2004, IEEE Standard for Local and metropolitan area networks: Media Access Control (MAC) Bridges</em></p>
+<p><strong>7.1 Bridge operation</strong></p>
+<p>The principal elements of Bridge operation are as follows:</p>
+<ol type="a">
+<li>Relay and filtering of frames.</li>
+<li>Maintenance of the information required to make frame filtering and relaying decisions.</li>
+<li>Management of the above.</li>
+</ol>
+</blockquote>
+<h2 id="发展历史">发展历史</h2>
+<p>如果说作为实体设备，网桥和交换机是一种东西，为什么还要给他再起个名字呢？这得从他的发展历史说起，参照维基百科贴的内容，在80年代现代意义上的MAC网桥被发明之后出现了多端口网桥，到了90年代 Kalpana, Inc. 给自家采用了直通交换技术（cut-through forwarding）的次世代网桥起了个名字 EtherSwitch ，因为该技术相较于传统的存储转发技术（Store and forward）引入的延迟更低，之后随着产品推广交换机这个名字就逐渐被广泛使用了。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Network_switch">Wikipedia: Network switch</a></p>
+<p>The first MAC Bridge[<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Network_switch#cite_note-3">3]</a>[<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Network_switch#cite_note-4">4]</a>[<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Network_switch#cite_note-5">5]</a> was invented[<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Network_switch#cite_note-6">6]</a> in 1983 by Mark Kempf, an engineer in the Networking Advanced Development group of <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Digital_Equipment_Corporation">Digital Equipment Corporation</a>. The first 2 port Bridge product (LANBridge 100) was introduced by that company shortly after. The company subsequently produced multi-port switches for both Ethernet and <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Fiber_Distributed_Data_Interface">FDDI</a> such as GigaSwitch. Digital decided to license its MAC Bridge patent in a royalty-free, non-discriminatory basis that allowed IEEE standardization. This permitted a number of other companies to produce multi-port switches, including <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Kalpana_(company)">Kalpana</a>.[<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Network_switch#cite_note-7">7]</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Kalpana,_Inc.">Wikipedia: Kalpana,_Inc.</a></p>
+<p>In 1989 and 1990, Kalpana introduced the first multiport <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Ethernet">Ethernet</a> switch, its seven-port EtherSwitch.[<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Kalpana,_Inc.#cite_note-networkcomputing_2000-5">5]</a> The invention of Ethernet switching made Ethernet networks faster, cheaper, and easier to manage. Multi-port <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Network_switch">network switches</a> became common, gradually replacing <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Ethernet_hub">Ethernet hubs</a> for almost all applications, and enabled an easy transition to 100-megabit <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Fast_Ethernet">Fast Ethernet</a> and later <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Gigabit_Ethernet">Gigabit Ethernet</a>.[<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Kalpana,_Inc.#cite_note-att_press_1995-6">6]</a>[<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Kalpana,_Inc.#cite_note-hardware.com-7">7]</a></p>
+</blockquote>
+<h2 id="杂记">杂记</h2>
+<p>搜索的过程中还看到了一些有意义的资料，简单记录下</p>
+<ol type="1">
+<li><p>关于 Linux Bridge</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://wiki.linuxfoundation.org/networking/bridge">Linux Wiki: bridge</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://wiki.linuxfoundation.org/networking/iproute2">Linux Wiki: iproute2</a></li>
+</ul></li>
+<li><p>关于 VirtualBox 的各种网络适配器</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.virtualbox.org/manual/ch06.html">Oracle® VM VirtualBox® User Manual Chapter 6. Virtual Networking</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nakivo.com/blog/install-ubuntu-on-virtualbox-virtual-machine/">VirtualBox network setting guide</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/554893004">VirtualBox网络配置超全详解</a></li>
+</ul></li>
+<li><p>关于各种网络设备</p>
+<ul>
+<li><p>IEEE 802.3 中关于 Repeater 的描述</p>
+<blockquote>
+<p><em>IEEE Std 802.3-2018, IEEE Standard for Ethernet</em></p>
+<p><strong>29.1.2 Repeater usage</strong></p>
+<p>Repeaters are the means used to connect segments of a network medium together into a single collision domain. Different signaling systems (i.e., 100BASE-T2, 100BASE-T4, 100BASE-TX, 100BASE-FX) can be joined into a common collision domain using repeaters. Bridges can also be used to connect different signaling systems; <strong>however, if a bridge is so used, each system connected to the bridge will be a separate collision domain.</strong></p>
+</blockquote></li>
+<li><p><em>Data Communications and Networking</em> 中关于 Hub 的描述</p>
+<blockquote>
+<p><em>Data Communications and Networking with TCP/IP Protocol Suite</em></p>
+<p><strong>6.1.1 Hubs</strong></p>
+<p>A <strong>hub</strong> is a device that operates only in the physical layer. Signals that carry information within a network can travel a fixed distance before attenuation endangers the integrity of the data. A <strong>repeater</strong> receives a signal and, before itbecomes too weak or corrupted, <em>regenerates</em> and <em>retimes</em> the original bit pattern. The repeater then sends the refreshed signal. In the past, when Ethernet LANs were using bus topology, a repeater was used to connect two segments of a LAN to overcome the length restriction of the coaxial cable. Today, however, Ethernet LANs use star topology. In a star topology, a repeater is a multiport device, often called a <em>hub</em>, that can be used to serve as the connecting point and at the same time function as a repeater.</p>
+</blockquote></li>
+<li><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.geeksforgeeks.org/network-devices-hub-repeater-bridge-switch-router-gateways/">Network Devices (Hub, Repeater, Bridge, Switch, Router, Gateways and Brouter)</a></p></li>
+</ul></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>ChiuJun
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://chiujun.github.io/posts/52e9b435.html" title="什么是网桥">https://chiujun.github.io/posts/52e9b435.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"># 网络</a>
+              <a href="/tags/IEEE-Standard/" rel="tag"># IEEE Standard</a>
+              <a href="/tags/Network-bridge/" rel="tag"># Network bridge</a>
+              <a href="/tags/Network-switch/" rel="tag"># Network switch</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/38cbcb60.html" rel="prev" title="MB、MiB与Mbps之间的区别与联系">
+                  <i class="fa fa-chevron-left"></i> MB、MiB与Mbps之间的区别与联系
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">ChiuJun</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">9k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">34 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener external nofollow noreferrer" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  <style>
+    .footer .footer-inner .wordcount {
+      display: none;
+    }
+  </style>
+  <div class="moe-beian">
+    <a href="https://icp.gov.moe/?keyword=20230706" rel="noopener external nofollow noreferrer" target="_blank" one-link-mark="yes">
+      萌ICP备20230706号
+    </a>
+  </div>
+  <style>
+    .footer .footer-inner .copyright {
+      order: -1;
+    }
+    .footer .footer-inner .moe-beian {
+      order: -1;
+    }
+  </style>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.12/pdfobject.min.js","integrity":"sha256-g2xji1rlE3KsGVClvuxTbcR0Kn2+wtQADSff2Tbb4zA="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.3/mermaid.min.js","integrity":"sha256-JFptYy4KzJ5OQP+Q9fubNf3cxpPPmZKqUOovyEONKrQ="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"chiujun","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
