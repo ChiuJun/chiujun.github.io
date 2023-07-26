@@ -145,7 +145,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%AF%E4%B8%8D%E6%98%AF"><span class="nav-number">1.</span> <span class="nav-text">是不是</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88"><span class="nav-number">2.</span> <span class="nav-text">为什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%A7%E9%97%B4%E9%9A%99%E4%B8%8E%E5%B8%A7%E6%97%B6%E9%9A%99"><span class="nav-number">3.</span> <span class="nav-text">9.2 帧间隙与帧时隙</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%B1%E5%93%8D%E4%BB%A5%E5%A4%AA%E7%BD%91%E4%BC%A0%E8%BE%93%E8%B7%9D%E7%A6%BB%E7%9A%84%E5%9B%A0%E7%B4%A0"><span class="nav-number">4.</span> <span class="nav-text">9.3 影响以太网传输距离的因素</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%AF%E4%B8%8D%E6%98%AF"><span class="nav-number">1.</span> <span class="nav-text">是不是</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88"><span class="nav-number">2.</span> <span class="nav-text">为什么</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -378,13 +378,13 @@
 <blockquote>
 <p>知乎专栏 <strong><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.zhihu.com/column/niuhai">数通网络实践</a></strong></p>
 <p>02数据在网络中的传输 - hai niu的文章 - 知乎 https://zhuanlan.zhihu.com/p/101336720</p>
-<h2 id="帧间隙与帧时隙">9.2 帧间隙与帧时隙</h2>
+<p><strong>9.2 帧间隙与帧时隙</strong></p>
 <p>计算机设备在发送数据帧时并不是连续的，即每发送完一个帧需要等待一个时间才可以发送下一个帧，其目的是为了让接收者能够处理得过来而不至于拥塞。这个等待的时间间隔我们把它叫做<strong>帧间隔</strong>或<strong>帧间隙（Inter Frame Gap，IFG）</strong>，它表示一个站点连续发送数据时，帧与帧之间的空闲时间或间隔时长，但是其量纲却不是时间（time），而是比特（bit）。一般情况下，以太网缺省帧间隔是96Bits，它指的是96位的数据通过线路的时间。此数值在华为等厂家的交换机上可以修改，但是建议保持默认。设置帧间隔有两个目的：1）防止接收端处理不过来而丢失数据；2）防止冲突。</p>
 <p><strong>帧时隙(Inter Frame Slot，IFS)</strong>也叫<strong>帧时槽</strong>，用来表示每一个数据帧占用的最小时间长度。以太网的帧时隙是512 Bits，它是由46 Bytes的最小帧数据长度 + 18 Bytes的帧头信息计算得来。在10/100Mbps链路上，如果512位Bits时间仍然没有收到，则认为线路是空闲的，而小于512 Bits的帧则认为是残帧。</p>
 <p>一个完整的以太网数据帧是672 Bites，即在有效数据帧的基础上再加上64 Bits的前导符和帧起始定界符 + 96 Bits的帧间隙共160 Bits。如果是计算接口的实际数据流量，前导和帧间隙等的开销也要计算在内，在计算交换机的转发性能时要注意不要漏算了。</p>
 <p>定义帧时隙是为了共享通信线路从而提高其利用率，此机制是通过<strong>CSMA/CD（Carrier Sense Multiple Access/Collision Detection，带冲突检测的载波侦听多路访问）</strong>实现。在10Mbps以太网中，512Bits数据传输的时间是51.2us，5-4-3原则最大传输距离是2500m，而根据电磁波的传输角度来看，512Bits在10Mbps以太网最大可传输2800m。在100Mbps以太网中，512Bits的数据传输完需要5.12us，电磁波在这个时间可传输约200m。</p>
 <p>在802.11无线网络中，因为隐蔽站问题（Hidden Station Problem）和暴露站问题（Exposed Station Problem），无法做到有效的冲突检测，取而代之采用的是<strong>CSMA/CA（Carrier Sense Multiple Access/Collision Avoidance，带冲突避免的载波侦听多路访问）</strong>。CSMA/CA实际上是一种半双工的通信方式，这让无线网络的通信效率大大降低。</p>
-<h2 id="影响以太网传输距离的因素">9.3 影响以太网传输距离的因素</h2>
+<p><strong>9.3 影响以太网传输距离的因素</strong></p>
 <p>第一影响以太网传输距离的因素是基于帧间隔和帧时隙基础上的CSMA/CD，其实就是一种介质访问控制。当然通信也离不开物理定律限制的，比如10Gbps以上的以太网都是全双工链路上，全双工链路虽然没有冲突检测，但即使是使用较高等级的线缆，通信距离也会受到限制，如40GBase-T（802.3bq-2016）使用Cat-8等级双绞线，最远通信距离也只有33m。</p>
 <p>这时限制通信距离的主要因素是超高频信号的远距离传输和检测，有一个专门的词汇描述这个问题：码间串扰（ISI， InterSymbol Interference）。在信道带宽不变的情况下想提升信息吞吐量只能增加信号频率，而频率的增加意味着单位时间内脉冲数量的增加，如果脉冲时域不变，数量的增加就会导致相邻脉冲的之间相互干扰，信号受干扰后就影响检出，而缩短脉冲时域，会因为信号出现的时间太短而检出困难。距离越长表现得越明显。</p>
 <p>另外，最远通信距离的定义还考虑了现实因素，早期的以太网也有比较远的通信距离（如10Base5，1Base5，10Base2等），但是为了满足大多数应用场景的通信距离需求，同时又要兼顾线路的使用效率，最后才普遍采用了100m的最远通信距离，可以认为是工程技术艺术化处理的结果吧！</p>
