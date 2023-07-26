@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/uploads/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/uploads/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chiujun.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="为什么网线布线长度不能超过100米呢？随手百度了下，原本的预期是一堆看不懂的涉及物理的通信原理计算。实际百度结果说是因为CSMA&#x2F;CD带来的争用期问题，参考如下：  《局域网与互联网原理及应用》 3.3.1 协议参数 ​ 时隙（time slot）是一个应用程序得知消息的正确传输所需的时间。这段时间的最小长 度等于线路上消息传播的最大时长的两倍。这就证实了我们之前所见的布线约束。 ​ 考虑两个最远">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="为什么以太网的网线长度不能超过100米">
+<meta property="og:url" content="https://chiujun.github.io/posts/48e330cd.html">
+<meta property="og:site_name" content="ChiuJun&#39;s Blog">
+<meta property="og:description" content="为什么网线布线长度不能超过100米呢？随手百度了下，原本的预期是一堆看不懂的涉及物理的通信原理计算。实际百度结果说是因为CSMA&#x2F;CD带来的争用期问题，参考如下：  《局域网与互联网原理及应用》 3.3.1 协议参数 ​ 时隙（time slot）是一个应用程序得知消息的正确传输所需的时间。这段时间的最小长 度等于线路上消息传播的最大时长的两倍。这就证实了我们之前所见的布线约束。 ​ 考虑两个最远">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ChiuJun/img-hosting@main/img/202307262143519.png">
+<meta property="article:published_time" content="2023-07-26T23:03:50.000Z">
+<meta property="article:modified_time" content="2023-07-26T23:03:50.000Z">
+<meta property="article:author" content="ChiuJun">
+<meta property="article:tag" content="网络">
+<meta property="article:tag" content="IEEE Standard">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="以太网">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ChiuJun/img-hosting@main/img/202307262143519.png">
+
+
+<link rel="canonical" href="https://chiujun.github.io/posts/48e330cd.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://chiujun.github.io/posts/48e330cd.html","path":"posts/48e330cd.html","title":"为什么以太网的网线长度不能超过100米"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>为什么以太网的网线长度不能超过100米 | ChiuJun's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ChiuJun's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%AF%E4%B8%8D%E6%98%AF"><span class="nav-number">1.</span> <span class="nav-text">是不是</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88"><span class="nav-number">2.</span> <span class="nav-text">为什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%A7%E9%97%B4%E9%9A%99%E4%B8%8E%E5%B8%A7%E6%97%B6%E9%9A%99"><span class="nav-number">3.</span> <span class="nav-text">9.2 帧间隙与帧时隙</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%B1%E5%93%8D%E4%BB%A5%E5%A4%AA%E7%BD%91%E4%BC%A0%E8%BE%93%E8%B7%9D%E7%A6%BB%E7%9A%84%E5%9B%A0%E7%B4%A0"><span class="nav-number">4.</span> <span class="nav-text">9.3 影响以太网传输距离的因素</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ChiuJun"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">ChiuJun</p>
+  <div class="site-description" itemprop="description">Personal Blog</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ChiuJun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ChiuJun" rel="noopener me external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lj.chiu@outlook.com" title="E-Mail → mailto:lj.chiu@outlook.com" rel="noopener me external nofollow noreferrer" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener external nofollow noreferrer" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chiujun.github.io/posts/48e330cd.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="ChiuJun">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChiuJun's Blog">
+      <meta itemprop="description" content="Personal Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="为什么以太网的网线长度不能超过100米 | ChiuJun's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          为什么以太网的网线长度不能超过100米
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-26 23:03:50" itemprop="dateCreated datePublished" datetime="2023-07-26T23:03:50+00:00">2023-07-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/posts/48e330cd.html#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/48e330cd.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>为什么网线布线长度不能超过100米呢？随手百度了下，原本的预期是一堆看不懂的涉及物理的通信原理计算。实际百度结果说是因为<code>CSMA/CD</code>带来的争用期问题，参考如下：</p>
+<blockquote>
+<p>《局域网与互联网原理及应用》</p>
+<p><strong>3.3.1 协议参数</strong></p>
+<p>​ <strong>时隙（time slot）</strong>是一个应用程序得知消息的正确传输所需的时间。这段时间的最小长 度等于线路上消息传播的最大时长的两倍。这就证实了我们之前所见的布线约束。</p>
+<p>​ 考虑两个最远的站并且加上在信号传送一个来回时所能引入的所有延迟。计算的结果 显示最大传播时长为 44.99 μs。对于一个经典的以太网而言，其标准给出的值要稍微高一 些。时隙的时长等于发射 512 个位的时长——以 10 Mb/s 的话是 51.2 μs。</p>
+<p>​ 帧的发射时长总是大于或等于时隙。对于一个 10 Mb/s 的网络而言，51.2 μs 与 64 字节 帧的发射时长相关。如果分组很小，那么会引入一些<strong>填充（padding）</strong>位以便达到这一尺寸。 这一最小时长的引入，是为了让所有的站在传输之后处于相同的状态。</p>
+<p>​ 图 3.7 展示了发射时长比传播延迟小的协议。站 S1 发送消息 M1，而站 S7 同时发送消 息 M2。由于发射时长比传播时长小，这些站在发射期间没有时间来发现冲突。它们将传 送一个正确的传送给上一层。我们也可看到:</p>
+<ul>
+<li><p>站 S2 已经正确接收帧 M1，但没有正确接收帧 M2;</p></li>
+<li><p>站 S6 已经正确接收帧 M2，但没有正确接收帧 M1;</p></li>
+<li><p>站 S3、S4 和 S5 没有正确接收到任何帧。</p></li>
+</ul>
+<figure>
+<img data-src="https://cdn.jsdelivr.net/gh/ChiuJun/img-hosting@main/img/202307262143519.png" alt="" /><figcaption>图 3.7 发射时长比时隙短</figcaption>
+</figure>
+<p>​ 最大帧尺寸为 1518 字节（1500 数据字节，14 个头字节和 4 字节 CRC），以避免一个站独 占信道。这一尺寸的固定值是任意设定的，不过更大的尺寸将增加冲突风险，如图 3.6 所示。</p>
+<p>​ 当一个站侦测到冲突时，它不会立即中断传输。而是发送干扰(jamming)数据来让其他站侦测到冲突。干扰数据的大小是 32 位。冲突帧的发射可持续不到一个时隙的时间。 如果不遵守布线规则，冲突会在 51.2 μs 之后被侦测到。在网络中，这种不正确的行为称为<strong>迟冲突（late collision）</strong>。</p>
+</blockquote>
+<p>遂接着百度什么是<code>CSMA/CD</code>，但奇怪的是，好多地方说现代以太网都是全双工模式基本用不到<code>CSMA/CD</code>了。</p>
+<blockquote>
+<p><em>Computer Networking A Top-Down Approach</em> SEVENTH EDITION</p>
+<p><strong>6.4.2 Ethernet</strong></p>
+<p>Let’s conclude our discussion of Ethernet technology by posing a question that may have begun troubling you. In the days of bus topologies and hub-based star topologies, Ethernet was clearly a broadcast link (as defined in Section 6.3) in which frame collisions occurred when nodes transmitted at the same time. To deal with these collisions, the Ethernet standard included the CSMA/CD protocol, which is particularly effective for a wired broadcast LAN spanning a small geographical region. But if the prevalent use of Ethernet today is a switch-based star topology, using store-and-forward packet switching, is there really a need anymore for an Ethernet MAC protocol? As we’ll see shortly, a switch coordinates its transmissions and never forwards more than one frame onto the same interface at any time. Furthermore, modern switches are full-duplex, so that a switch and a node can each send frames to each other at the same time without interference. <strong>In other words, in a switch-based Ethernet LAN there are no collisions and, therefore, there is no need for a MAC protocol!</strong></p>
+</blockquote>
+<p>关于这个话题，知乎上有一个回答比较有参考价值，由于不允许自由转载就不贴内容了。</p>
+<blockquote>
+<p>全双工的以太网还有必要使用CSMA/CD协议吗？ - Wi-Fi研习者的回答 - 知乎 https://www.zhihu.com/question/480967242/answer/2071451945</p>
+</blockquote>
+<p>其实和自顶向下提到的一致。两个原因：</p>
+<ul>
+<li>As we’ll see shortly, a switch coordinates its transmissions and never forwards more than one frame onto the same interface at any time</li>
+<li>Furthermore, modern switches are full-duplex</li>
+</ul>
+<p>既然现代的以太网用不到<code>CSMA/CD</code>，那还有这个长度限制吗？老传统，先问是不是再问为什么。</p>
+<h2 id="是不是">是不是</h2>
+<p>对于不同的传输速率与传输介质，IEEE 802.3 都作了相应规定。在传输介质是双绞线时大部分情况下100米这个说法是正确的，并且这里的100米指的是一个网段的长度，网段的定义可以参考 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Network_segment">Wikipedia: Network segment</a> 。</p>
+<p>这里摘几个例子：</p>
+<ul>
+<li><p>100BASE-T4</p>
+<blockquote>
+<p><em>IEEE Std 802.3-2018, IEEE Standard for Ethernet</em></p>
+<p><strong>23. Physical Coding Sublayer (PCS), Physical Medium Attachment (PMA) sublayer and baseband medium, type 100BASE-T4</strong> <strong>23.1.2 Objectives</strong></p>
+<p>The following are the objectives of 100BASE-T4:</p>
+<ol type="a">
+<li>To support the CSMA/CD MAC in the half duplex mode of operation.</li>
+<li>To support the 100BASE-T MII, Repeater, and optional Auto-Negotiation.</li>
+<li>To provide 100 Mb/s data rate at the MII.</li>
+<li>To provide for operating over twisted pairs of Category 3, 4, or 5 cable, installed as horizontal runs in accordance with ISO/IEC 11801: 1995, as specified in 23.6, <strong>at distances up to 100 m (328 ft).</strong></li>
+<li>To allow for a nominal network extent of 200 m, including:<br />
+1) Unshielded twisted-pair links of 100 m.<br />
+2) Two-repeater networks of approximately a 200 m span.</li>
+<li>To provide a communication channel with a mean ternary symbol error ratio, at the PMA service interface, of less than one part in <span class="math inline">\(10^8\)</span>.</li>
+</ol>
+</blockquote></li>
+<li><p>1000BASE0T</p>
+<blockquote>
+<p><em>IEEE Std 802.3-2018, IEEE Standard for Ethernet</em></p>
+<p><strong>40. Physical Coding Sublayer (PCS), Physical Medium Attachment (PMA) sublayer and baseband medium, type 1000BASE-T</strong> <strong>40.1.1 Objectives</strong></p>
+<p>The following are the objectives of 1000BASE-T:</p>
+<ol type="a">
+<li>Support the CSMA/CD MAC</li>
+<li>Comply with the specifications for the GMII (Clause 35)</li>
+<li>Support the 1000 Mb/s repeater (Clause 41)</li>
+<li>Provide line transmission that supports full and half duplex operation</li>
+<li>Meet or exceed FCC Class A/CISPR or better operation</li>
+<li><strong>Support operation over 100 meters of copper balanced cabling as defined in 40.7</strong></li>
+<li>Bit Error Ratio of less than or equal to 10-10</li>
+<li>Support Auto-Negotiation (Clause 28)</li>
+</ol>
+</blockquote></li>
+</ul>
+<h2 id="为什么">为什么</h2>
+<p>为什么可以用一句话概括，这是标准制定者兼顾传输效率与工程考量作出的限定。厂商依据标准制造设备，施工者依据标准布线，设备才能以理想情况运作起来。</p>
+<p>简单来说，对于不共享传输介质采用交换机构成星形拓扑的现代以太网，主要考量因素为：</p>
+<ol type="1">
+<li>物理限制：码间串扰、信号衰减</li>
+<li>工程考量：向后兼容、布线施工</li>
+</ol>
+<p>对于传统以太网，因为采用了<code>CSMA/CD</code>机制，则多了一个因素就是帧时隙（Inter Frame Slot，IFS）。详细的内容这里摘一篇文章供参考（非权威）：</p>
+<blockquote>
+<p>知乎专栏 <strong><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.zhihu.com/column/niuhai">数通网络实践</a></strong></p>
+<p>02数据在网络中的传输 - hai niu的文章 - 知乎 https://zhuanlan.zhihu.com/p/101336720</p>
+<h2 id="帧间隙与帧时隙">9.2 帧间隙与帧时隙</h2>
+<p>计算机设备在发送数据帧时并不是连续的，即每发送完一个帧需要等待一个时间才可以发送下一个帧，其目的是为了让接收者能够处理得过来而不至于拥塞。这个等待的时间间隔我们把它叫做<strong>帧间隔</strong>或<strong>帧间隙（Inter Frame Gap，IFG）</strong>，它表示一个站点连续发送数据时，帧与帧之间的空闲时间或间隔时长，但是其量纲却不是时间（time），而是比特（bit）。一般情况下，以太网缺省帧间隔是96Bits，它指的是96位的数据通过线路的时间。此数值在华为等厂家的交换机上可以修改，但是建议保持默认。设置帧间隔有两个目的：1）防止接收端处理不过来而丢失数据；2）防止冲突。</p>
+<p><strong>帧时隙(Inter Frame Slot，IFS)</strong>也叫<strong>帧时槽</strong>，用来表示每一个数据帧占用的最小时间长度。以太网的帧时隙是512 Bits，它是由46 Bytes的最小帧数据长度 + 18 Bytes的帧头信息计算得来。在10/100Mbps链路上，如果512位Bits时间仍然没有收到，则认为线路是空闲的，而小于512 Bits的帧则认为是残帧。</p>
+<p>一个完整的以太网数据帧是672 Bites，即在有效数据帧的基础上再加上64 Bits的前导符和帧起始定界符 + 96 Bits的帧间隙共160 Bits。如果是计算接口的实际数据流量，前导和帧间隙等的开销也要计算在内，在计算交换机的转发性能时要注意不要漏算了。</p>
+<p>定义帧时隙是为了共享通信线路从而提高其利用率，此机制是通过<strong>CSMA/CD（Carrier Sense Multiple Access/Collision Detection，带冲突检测的载波侦听多路访问）</strong>实现。在10Mbps以太网中，512Bits数据传输的时间是51.2us，5-4-3原则最大传输距离是2500m，而根据电磁波的传输角度来看，512Bits在10Mbps以太网最大可传输2800m。在100Mbps以太网中，512Bits的数据传输完需要5.12us，电磁波在这个时间可传输约200m。</p>
+<p>在802.11无线网络中，因为隐蔽站问题（Hidden Station Problem）和暴露站问题（Exposed Station Problem），无法做到有效的冲突检测，取而代之采用的是<strong>CSMA/CA（Carrier Sense Multiple Access/Collision Avoidance，带冲突避免的载波侦听多路访问）</strong>。CSMA/CA实际上是一种半双工的通信方式，这让无线网络的通信效率大大降低。</p>
+<h2 id="影响以太网传输距离的因素">9.3 影响以太网传输距离的因素</h2>
+<p>第一影响以太网传输距离的因素是基于帧间隔和帧时隙基础上的CSMA/CD，其实就是一种介质访问控制。当然通信也离不开物理定律限制的，比如10Gbps以上的以太网都是全双工链路上，全双工链路虽然没有冲突检测，但即使是使用较高等级的线缆，通信距离也会受到限制，如40GBase-T（802.3bq-2016）使用Cat-8等级双绞线，最远通信距离也只有33m。</p>
+<p>这时限制通信距离的主要因素是超高频信号的远距离传输和检测，有一个专门的词汇描述这个问题：码间串扰（ISI， InterSymbol Interference）。在信道带宽不变的情况下想提升信息吞吐量只能增加信号频率，而频率的增加意味着单位时间内脉冲数量的增加，如果脉冲时域不变，数量的增加就会导致相邻脉冲的之间相互干扰，信号受干扰后就影响检出，而缩短脉冲时域，会因为信号出现的时间太短而检出困难。距离越长表现得越明显。</p>
+<p>另外，最远通信距离的定义还考虑了现实因素，早期的以太网也有比较远的通信距离（如10Base5，1Base5，10Base2等），但是为了满足大多数应用场景的通信距离需求，同时又要兼顾线路的使用效率，最后才普遍采用了100m的最远通信距离，可以认为是工程技术艺术化处理的结果吧！</p>
+<p>在一些通讯距离较远，而又无法添加中继设备的场景中，我们还需要用到另外一个技术，叫<strong>长距离以太网（Long Reach Ethernet，LRE）</strong>，它除了将物理信号增强和提高信号检测的能力外，最重要的一点就是修改了帧间隙。因为帧间隙的修改，LRE设备都需要成对使用，否则时隙不一致就会导致冲突的产生。</p>
+<p>归根到底你会发现，其实最根本的影响因素原来是人们的需要。只有能满足需求的技术才是有用的技术，只有有用的技术才有价值，只有能够不停满足需要的技术才能生生不息。由此可见以太网及IEEE、IETF等的强大之处。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>ChiuJun
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://chiujun.github.io/posts/48e330cd.html" title="为什么以太网的网线长度不能超过100米">https://chiujun.github.io/posts/48e330cd.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"># 网络</a>
+              <a href="/tags/IEEE-Standard/" rel="tag"># IEEE Standard</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+              <a href="/tags/%E4%BB%A5%E5%A4%AA%E7%BD%91/" rel="tag"># 以太网</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/52e9b435.html" rel="prev" title="什么是网桥">
+                  <i class="fa fa-chevron-left"></i> 什么是网桥
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">ChiuJun</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">12k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">45 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener external nofollow noreferrer" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  <style>
+    .footer .footer-inner .wordcount {
+      display: none;
+    }
+  </style>
+  <div class="moe-beian">
+    <a href="https://icp.gov.moe/?keyword=20230706" rel="noopener external nofollow noreferrer" target="_blank" one-link-mark="yes">
+      萌ICP备20230706号
+    </a>
+  </div>
+  <style>
+    .footer .footer-inner .copyright {
+      order: -1;
+    }
+    .footer .footer-inner .moe-beian {
+      order: -1;
+    }
+  </style>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.12/pdfobject.min.js","integrity":"sha256-g2xji1rlE3KsGVClvuxTbcR0Kn2+wtQADSff2Tbb4zA="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.3/mermaid.min.js","integrity":"sha256-JFptYy4KzJ5OQP+Q9fubNf3cxpPPmZKqUOovyEONKrQ="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"chiujun","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
