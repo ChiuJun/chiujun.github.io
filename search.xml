@@ -371,6 +371,334 @@
       </tags>
   </entry>
   <entry>
+    <title>第2届陇剑杯赛题</title>
+    <url>/posts/6e628265.html</url>
+    <content><![CDATA[<h1 id="比赛公告">比赛公告</h1>
+<blockquote>
+<ol type="1">
+<li><p>比赛结束后2小时内，所有参赛队伍都需要上传提交每道赛题详细的解题报告（WriteUp），经组委会审核后，确定各参赛队最终得分和排名。逾期提交或不提交视为放弃本次比赛排名。</p></li>
+<li><p>题目答案的格式请参照题目描述要求的格式，不需要额外再加flag{}；加密附件的密码也在对应题目上线后第一个小题描述里。目前server_save对应SS.zip 。还没上线的题目自然不会发密码。</p></li>
+<li><p>比赛过程中裁判组将会使用3883尾号的电话对参赛队员做随机反作弊抽查。（手机号后续若更新，请留意比赛公告）为了保证比赛的公平性，比赛全程开启人脸识别与电话质询的工作，严格执行竞赛纪律，请各参赛队伍严格遵守。</p></li>
+<li><p>fungame题目访问方式都是浏览器访问；新上线fungame题目；IncidentResponse_3 题目增加了一个描述，每个队伍该题答题次数加1。</p></li>
+<li><p>【数据分析部分场景加密附件，密码比赛当天给出】IR.zip：https://pan.baidu.com/s/1c4q7KwsRxTYO5SEkm2gqJg ；BF.zip：https://pan.baidu.com/s/1RtBnsuT7eiTkEPofjf0htQ ；SS.zip：https://pan.baidu.com/s/1hA91h4Z4zJYoOCRfgTftNQ ；提取码都是GAME（在官方Q群也将共享）</p></li>
+<li><p>理论题答题时间：2023年8月26日10:00—10:20 实操题答题时间：2023年8月26日10:20—18:00</p></li>
+<li><p>数据分析题：每道题目内置若干个小问，附件的下载在第一个小问的描述内容中。每个小问限制答题次数为5次。</p></li>
+<li><p>实操题每道小题前三血的队伍奖励该小题动态分值的5%、3%、1%。</p></li>
+<li><p>所有参赛选手在比赛开始至比赛结束，需进行屏幕录制操作，并将原视频文件进行保存1周以上，以备裁判组进行抽查，录屏文件要能够清晰查看解题思路，严禁后期处理，录屏如果出现中断的情况，请在恢复后继续录屏操作，并在文件名称上进行备注中断时间。文件命名方式：战队名称+队员姓名+备注（中断或者重录说明）.mp4 ，录屏软件无要求，如未能提供录屏软件文件将判定为比赛成绩无效</p></li>
+</ol>
+</blockquote>
+<h1 id="安全知识20题">安全知识(20题)</h1>
+<h2 id="单选10题">单选(10题)</h2>
+<ol type="1">
+<li><p>题目内容： 位置无关可执行文件(Position-Independent Executable, PIE)通过将程序编译为位置无关代码使程序可以被加载到任意位置,但由于PIE的技术缺陷导致程序不会随机化地址的低__位（二进制位）</p>
+<blockquote>
+<ul>
+<li>12</li>
+<li>4</li>
+<li>8</li>
+<li>16</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： 为防止办公用计算机上的数据丢失或遭破坏，用户应主要做好( )措施。</p>
+<blockquote>
+<ul>
+<li>购置防病毒、防入侵等软件，提升计算机安全防护能力</li>
+<li>对计算机上的数据进行加密保护</li>
+<li>合理设置计算机登录密码并定期更改</li>
+<li>对计算机上的重要数据进行备份</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： 以下哪个不是PHP中常见的session默认存放路径：</p>
+<blockquote>
+<ul>
+<li>/var/log/sess_PHPSESSID</li>
+<li>/tmp/sessions/sess_PHPSESSID</li>
+<li>/var/lib/php/sess_PHPSESSID</li>
+<li>/tmp/sess_PHPSESSID</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： 该用户希望U盘中的所有可执行程序均无法运行。那么，其最合适的安全规则是（）。</p>
+<blockquote>
+<ul>
+<li>Internet区域规则</li>
+<li>证书规则</li>
+<li>路径规则</li>
+<li>散列规则</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： 用户如发现有人在微信上恶意造谣、诽谤或中伤自己，并已引起了很多人的关注，给自己造成了严重影响。该用户应该采取( )措施。</p>
+<blockquote>
+<ul>
+<li>在微信上向对方讲道理，争取对方悔改道歉并撤回以往言论</li>
+<li>向公安机关报案，注意保存有关证据，适时向其他人解释有关事实以消除影响</li>
+<li>在微信上向对方还击，以牙还牙</li>
+<li>联系微信运营单位，注销对方微信账户</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： 开启SSP安全机制的程序为保护栈会在函数返回前检查Canary是否被篡改,将从栈上取出的Canary与TLS中的Canary进行异或比较，若不相等则转到__函数中，程序终止</p>
+<blockquote>
+<ul>
+<li>_dl_setup_stack_chk_guard()</li>
+<li>__stack_chk_fail()__</li>
+<li>libc_start_main()</li>
+<li>security_init()</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： 做好信息安全应急管理工作的重要前提是()</p>
+<blockquote>
+<ul>
+<li>事件分类</li>
+<li>事件响应</li>
+<li>事件报告</li>
+<li>事件分级</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： RAID技术能够使得多硬盘读取速度加快及提供一定的容错性，以下读写性能最优且有数 据安全保障的RAID方式是_____</p>
+<blockquote>
+<ul>
+<li>RAID 0+1</li>
+<li>RAID 5</li>
+<li>RAID 1</li>
+<li>RAID 0</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： 信息系统废弃阶段的信息安全管理形式是()</p>
+<blockquote>
+<ul>
+<li>组织信息系统废弃验收</li>
+<li>组织建设方案安全评审</li>
+<li>开展信息安全风险评估</li>
+<li>组织信息系统安全整改</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： stm32的处理器架构是（）：</p>
+<blockquote>
+<ul>
+<li>ARMv8</li>
+<li>ARMv7-A&amp;R</li>
+<li>ARMv6-M</li>
+<li>ARMv7-M</li>
+</ul>
+</blockquote></li>
+</ol>
+<h2 id="多选10题">多选(10题)</h2>
+<ol type="1">
+<li><p>题目内容： 以下，供应链安全可能存在的安全风险包含哪些。</p>
+<blockquote>
+<ul>
+<li>产品和服务的安全性、开放性、透明性，来源的多样性，供应渠道的可靠性以及因为政治、外交、贸易等因素导致供应中断的风险</li>
+<li>存在安全隐患的终端接入企业内网，容易把外部的病毒、木马、蠕虫等风险扩散到企业其他终端，给企业的网络安全以及机密信息带来安全隐患</li>
+<li>重要数据或大量个人信息被国外政府影响、控制、恶意利用的风险</li>
+<li>供应中断对企业业务的连续性造成危害</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： 网络与数据安全岗位的特点有哪些？</p>
+<blockquote>
+<ul>
+<li>全局认知，推动创建安全的数字化环境。</li>
+<li>动态理念，注意安全隐患时刻发生变化。</li>
+<li>创新精神，直面技术手段迭代更新的挑战。</li>
+<li>风险思维，明白人员是供应链的重要环节。</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： ()启动进程类的函数，需要严格检查其参数</p>
+<blockquote>
+<ul>
+<li>CreateProcess</li>
+<li>ShellExecute</li>
+<li>WinExec</li>
+<li>system</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： 《数据安全法》中规定了数据处理者的职责有哪些？</p>
+<blockquote>
+<ul>
+<li>定期风险评估</li>
+<li>留存审核交易记录</li>
+<li>加强风险监测</li>
+<li>建立数据安全管理制度</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： 不要在()中暴露会话标识符。会话标识符应当只出现在 HTTP cookie 头信息中</p>
+<blockquote>
+<ul>
+<li>cookie</li>
+<li>URL</li>
+<li>日志</li>
+<li>错误信息</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： 网络与信息系统有哪些阶段？</p>
+<blockquote>
+<ul>
+<li>规划</li>
+<li>建设</li>
+<li>完善</li>
+<li>使用</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： 事件发生后，涉事单位和相关部门在先期处置过程中，采取的记录手段有（）</p>
+<blockquote>
+<ul>
+<li>文件备份</li>
+<li>手工记录</li>
+<li>删除日志</li>
+<li>截屏</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： C语言编程时不得直接使用无长度限制的字符拷贝函数，例如（），如果环境允许，应当使用其安全版本替代，或者使用n版本函数。</p>
+<blockquote>
+<ul>
+<li>sprintf</li>
+<li>wcscpy</li>
+<li>strcat</li>
+<li>strcpy_s</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： 数字政府的建设与政务数据的运用相关的配套工作有。</p>
+<blockquote>
+<ul>
+<li>强化政务数据共享统筹协调，建立权威高效的共享协调机制</li>
+<li>完善政务数据共享安全保障，保障数据共享过程安全可靠</li>
+<li>提升政务数据共享平台支撑能力，完善政务数据共享服务体系</li>
+<li>建立政务数据高效供需对接机制，建立健全数据全生命周期质量管理体系</li>
+</ul>
+</blockquote></li>
+<li><p>题目内容： 营造良好的数字生态，离不开人与技术的深度协作。针对内部操作人员有哪些制度。</p>
+<blockquote>
+<ul>
+<li>技术监督</li>
+<li>安全与备份管理</li>
+<li>技术定期提升</li>
+<li>考核评价</li>
+</ul>
+</blockquote></li>
+</ol>
+<h1 id="数据分析40题">数据分析(40题)</h1>
+<h2 id="hard_web">hard_web</h2>
+<p><a href="https://pan.baidu.com/s/1WP28S0BTrUfRGX-hGMWfkQ">附件下载</a> 提取码（GAME）<a href="https://share.weiyun.com/ej9tuo4M">备用下载</a></p>
+<p><a href="./files/hard_web_99af7443957c71d3961b3e3cc6045f46.zip">本地文件</a></p>
+<h3 id="hard_web_1">hard_web_1</h3>
+<p>题目内容：服务器开放了哪些端口，请按照端口大小顺序提交答案，并以英文逗号隔开(如服务器开放了80 81 82 83端口，则答案为80,81,82,83)</p>
+<h3 id="hard_web_2">hard_web_2</h3>
+<p>题目内容：服务器中根目录下的flag值是多少？</p>
+<h3 id="hard_web_3">hard_web_3</h3>
+<p>题目内容：该webshell的连接密码是多少？</p>
+<h2 id="sevrer-save">sevrer save</h2>
+<p>本题附件见于平台公告的SS.zip，解压密码为c77ad47ba4c85fae66f08ec12e0085dd</p>
+<h3 id="sevrer-save_1">sevrer save_1</h3>
+<p>题目内容：黑客是使用什么漏洞来拿下root权限的。格式为：CVE-2020-114514</p>
+<h3 id="sevrer-save_2">sevrer save_2</h3>
+<p>题目内容：黑客反弹shell的ip和端口是什么，格式为：10.0.0.1:4444</p>
+<h3 id="sevrer-save_3">sevrer save_3</h3>
+<p>题目内容：黑客的病毒名称是什么？ 格式为：filename</p>
+<h3 id="sevrer-save_4">sevrer save_4</h3>
+<p>题目内容：黑客的病毒运行后创建了什么用户？请将回答用户名与密码：username:password</p>
+<h3 id="sevrer-save_5">sevrer save_5</h3>
+<p>题目内容：服务器在被入侵时外网ip是多少? 格式为：10.10.0.1</p>
+<h3 id="sevrer-save_6">sevrer save_6</h3>
+<p>题目内容：病毒运行后释放了什么文件？格式：文件1,文件2</p>
+<h3 id="sevrer-save_7">sevrer save_7</h3>
+<p>题目内容：矿池地址是什么？ 格式：domain:1234</p>
+<h3 id="sevrer-save_8">sevrer save_8</h3>
+<p>题目内容：黑客的钱包地址是多少？格式：xx:xxxxxxxx</p>
+<h2 id="wireshark1">Wireshark1</h2>
+<p><a href="https://pan.baidu.com/s/1SPvbhQ9nw5Wp23TzUHFr_g">附件下载</a> 提取码（GAME）<a href="https://share.weiyun.com/lykzsNsI">备用下载</a></p>
+<p><a href="./files/wireshark1_dc337306e02806e9e11e650c515bd774.zip">本地文件</a></p>
+<h3 id="wireshark1_1">Wireshark1_1</h3>
+<p>题目内容：被入侵主机的IP是？</p>
+<h3 id="wireshark1_2">Wireshark1_2</h3>
+<p>题目内容：被入侵主机的口令是？</p>
+<h3 id="wireshark1_3">Wireshark1_3</h3>
+<p>题目内容：用户目录下第二个文件夹的名称是？</p>
+<h3 id="wireshark1_4">Wireshark1_4</h3>
+<p>题目内容：/etc/passwd中倒数第二个用户的用户名是？</p>
+<h2 id="incidentresponse">IncidentResponse</h2>
+<p>本题附件见于平台公告的IR.zip，解压密码为f0b1ba11478343f404666c355919de3f</p>
+<p>你是公司的一名安全运营工程师，今日接到外部监管部门通报，你公司网络出口存在请求挖矿域名的行为。需要立即整改。经过与网络组配合，你们定位到了请求挖矿域名的内网IP是10.221.36.21。查询CMDB后得知该IP运行了公司的工时系统。（虚拟机账号密码为：root/IncidentResponsePasswd）</p>
+<h3 id="incidentresponse_1">IncidentResponse_1</h3>
+<p>题目内容：挖矿程序所在路径是？（答案中如有空格均需去除，如有大写均需变为小写，使用echo -n 'strings'|md5sum|cut -d ' ' -f1获取md5值作为答案）</p>
+<h3 id="incidentresponse_2">IncidentResponse_2</h3>
+<p>题目内容：挖矿程序连接的矿池域名是？（答案中如有空格均需去除，如有大写均需变为小写，使用echo -n 'strings'|md5sum|cut -d ' ' -f1获取md5值作为答案）</p>
+<h3 id="incidentresponse_3">IncidentResponse_3</h3>
+<p>题目内容：攻击者入侵服务器的利用的方法是？（答案中如有空格均需去除，如有大写均需变为小写，使用echo -n 'strings'|md5sum|cut -d ' ' -f1获取md5值作为答案）</p>
+<blockquote>
+<p>题目提示：答案md5值前两位为3e</p>
+</blockquote>
+<h3 id="incidentresponse_4">IncidentResponse_4</h3>
+<p>题目内容：攻击者的IP是？（答案中如有空格均需去除，如有大写均需变为小写，使用echo -n 'strings'|md5sum|cut -d ' ' -f1获取md5值作为答案）</p>
+<h3 id="incidentresponse_5">IncidentResponse_5</h3>
+<p>题目内容：攻击者发起攻击时使用的User-Agent是？（答案中如有空格均需去除，如有大写均需变为小写，使用echo -n 'strings'|md5sum|cut -d ' ' -f1获取md5值作为答案）</p>
+<h3 id="incidentresponse_6">IncidentResponse_6</h3>
+<p>题目内容：攻击者使用了两种权限维持手段，相应的配置文件路径是？(md5加密后以a开头)（答案中如有空格均需去除，如有大写均需变为小写，使用echo -n 'strings'|md5sum|cut -d ' ' -f1获取md5值作为答案）</p>
+<h3 id="incidentresponse_7">IncidentResponse_7</h3>
+<p>题目内容：攻击者使用了两种权限维持手段，相应的配置文件路径是？(md5加密后以b开头)（答案中如有空格均需去除，如有大写均需变为小写，使用echo -n 'strings'|md5sum|cut -d ' ' -f1获取md5值作为答案）</p>
+<h2 id="smallsword">SmallSword</h2>
+<p><a href="https://pan.baidu.com/s/1xbNC38rJJQJJtykOkru8tw">附件下载</a> 提取码（GAME）<a href="https://share.weiyun.com/YjvFxs7R">备用下载</a></p>
+<p><a href="./files/SmallSword_f0255d257b71afd3affd813cf362f025.zip">本地文件</a></p>
+<h3 id="smallsword_1">SmallSword_1</h3>
+<p>题目内容：连接蚁剑的正确密码是______________?（答案示例：123asd）</p>
+<h3 id="smallsword_2">SmallSword_2</h3>
+<p>题目内容：攻击者留存的值是______________?(答案示例：d1c3f0d3-68bb-4d85-a337-fb97cf99ee2e)</p>
+<h3 id="smallsword_3">SmallSword_3</h3>
+<p>题目内容：攻击者下载到的flag是______________?(答案示例：flag3{uuid})</p>
+<h2 id="ez_web">ez_web</h2>
+<p><a href="https://pan.baidu.com/s/16XAq9UKZ-KGYxI_HwNnllA">附件下载</a> 提取码（GAME）<a href="https://share.weiyun.com/JOIiJN8d">备用下载</a></p>
+<p><a href="./files/ez_web_e82608071ac21070473ff8c37658e265.zip">本地文件</a></p>
+<h3 id="ez_web_1">ez_web_1</h3>
+<p>题目内容：服务器自带的后门文件名是什么？（含文件后缀）</p>
+<h3 id="ez_web_2">ez_web_2</h3>
+<p>题目内容：服务器的内网IP是多少？</p>
+<h3 id="ez_web_3">ez_web_3</h3>
+<p>题目内容：攻击者往服务器中写入的key是什么？</p>
+<h2 id="baby_forensics">baby_forensics</h2>
+<p>本题附件见于平台公告的BF.zip，解压密码为4cf611fce4a2fec305e54c2766b7c860</p>
+<h3 id="baby_forensics_1">baby_forensics_1</h3>
+<p>题目内容：磁盘中的key是多少？</p>
+<h3 id="baby_forensics_2">baby_forensics_2</h3>
+<p>题目内容：电脑中正在运行的计算器的运行结果是多少？</p>
+<h3 id="baby_forensics_3">baby_forensics_3</h3>
+<p>题目内容：该内存文件中存在的flag值是多少？</p>
+<h2 id="tcpdump">tcpdump</h2>
+<p><a href="https://pan.baidu.com/s/1IjgjazCNdB57C_MzPhaVGw">附件下载</a> 提取码（GAME）<a href="https://share.weiyun.com/ppyurTBN">备用下载</a></p>
+<p><a href="./files/easywiki.zip">本地文件</a></p>
+<h3 id="tcpdump_1">tcpdump_1</h3>
+<p>题目内容：攻击者通过暴力破解进入了某Wiki 文档，请给出登录的用户名与密码，以:拼接，比如admin:admin</p>
+<h3 id="tcpdump_2">tcpdump_2</h3>
+<p>题目内容：攻击者发现软件存在越权漏洞，请给出攻击者越权使用的cookie的内容的md5值。（32位小写）</p>
+<h3 id="tcpdump_3">tcpdump_3</h3>
+<p>题目内容：攻击使用jdbc漏洞读取了应用配置文件，给出配置中的数据库账号密码，以:拼接，比如root:123456</p>
+<h3 id="tcpdump_4">tcpdump_4</h3>
+<p>题目内容：攻击者又使用了CVE漏洞攻击应用，执行系统命令，请给出此CVE编号以及远程EXP的文件名，使用:拼接，比如CVE-2020-19817:exp.so</p>
+<h3 id="tcpdump_5">tcpdump_5</h3>
+<p>题目内容：给出攻击者获取系统权限后，下载的工具的名称，比如nmap</p>
+<h2 id="hacked">hacked</h2>
+<p><a href="https://pan.baidu.com/s/1YJoc2ZIQY73ceWgRZFNpRQ">附件下载</a> 提取码（GAME）<a href="https://share.weiyun.com/fuPq3zJg">备用下载</a></p>
+<p><a href="./files/hacked_9702a13c99753e97b1c04a3aa687bbd4.zip">本地文件</a></p>
+<h3 id="hacked_1">hacked_1</h3>
+<p>题目内容：admIn用户的密码是什么？</p>
+<h3 id="hacked_2">hacked_2</h3>
+<p>题目内容：app.config['SECRET_KEY']值为多少？</p>
+<h3 id="hacked_3">hacked_3</h3>
+<p>题目内容：flask网站由哪个用户启动？</p>
+<h3 id="hacked_4">hacked_4</h3>
+<p>题目内容：攻击者写入的内存马的路由名叫什么？（答案里不需要加/）</p>
+<h1 id="web1题">Web(1题)</h1>
+<h2 id="fungame">fungame</h2>
+<p>题目内容：近日，网管小李被通知说自己管理的网站存在漏洞，请你帮助小李找到存在漏洞的位置，并且将漏洞修复（敏感信息泄露也算哦）。修复漏洞后，等待一分钟左右，/flag就会变为可读权限。可以借用 /index.php?r=debug/default/index 的web接口的debug进行分析。</p>
+<blockquote>
+<p>需要平台下发赛题</p>
+</blockquote>
+<p>​</p>
+]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>归档</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>什么是网桥</title>
     <url>/posts/52e9b435.html</url>
     <content><![CDATA[<h2 id="引言">引言</h2>
