@@ -277,14 +277,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.1k</span>
+      <span>1.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>5 分钟</span>
     </span>
 </div>
 
@@ -350,6 +350,13 @@
 <p><em>Data Communications and Networking with TCP/IP Protocol Suite</em></p>
 <p><strong>6.1.1 Hubs</strong></p>
 <p>A <strong>hub</strong> is a device that operates only in the physical layer. Signals that carry information within a network can travel a fixed distance before attenuation endangers the integrity of the data. A <strong>repeater</strong> receives a signal and, before itbecomes too weak or corrupted, <em>regenerates</em> and <em>retimes</em> the original bit pattern. The repeater then sends the refreshed signal. In the past, when Ethernet LANs were using bus topology, a repeater was used to connect two segments of a LAN to overcome the length restriction of the coaxial cable. Today, however, Ethernet LANs use star topology. In a star topology, a repeater is a multiport device, often called a <em>hub</em>, that can be used to serve as the connecting point and at the same time function as a repeater.</p>
+</blockquote>
+<p>注：上面的描述最后一句指的应该是在星形拓扑的以太网中中继设备（repeater）通常为多口，被称为 <em>hub</em> 。实际上对于 <em>hub</em> 来说，其物理拓扑为星形但逻辑拓扑仍为总线型，参考如下。</p>
+<blockquote>
+<p>《计算机网络（第7版）》</p>
+<p><strong>3.3.3 使用集线器的星形拓扑</strong></p>
+<p>集线器的一些特点如下：</p>
+<p>（1）从表面上看，使用集线器的局域网在物理上是一个星形网，但由于集线器使用电子器件来模拟实际电缆线的工作，因此整个系统仍像一个传统以太网那样运行。也就是说，<strong>使用这个集线器的以太网在逻辑上仍是一个总线网，各站共享逻辑上的总线，使用的还是 CSMA/CD 协议</strong>（更具体些说，是各站中的<strong>适配器</strong>执行 CSMA/CD 协议）。网络中的各站必须竞争对传输媒体的控制，并且<strong>在同一时刻至多只允许一个站发送数据</strong>。</p>
 </blockquote></li>
 <li><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.geeksforgeeks.org/network-devices-hub-repeater-bridge-switch-router-gateways/">Network Devices (Hub, Repeater, Bridge, Switch, Router, Gateways and Brouter)</a></p></li>
 </ul></li>
@@ -440,7 +447,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">58 分钟</span>
+    <span title="站点阅读时长">59 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
